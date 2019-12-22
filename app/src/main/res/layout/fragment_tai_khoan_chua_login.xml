@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_taikhoan">
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:id="@+id/imageView"
+        android:layout_width="217dp"
+        android:layout_height="207dp"
+        app:srcCompat="@drawable/logo" />
+    <EditText
+        android:id="@+id/edtUsername"
+        android:background="@null"
+        android:textColorHint="#ffffff"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:hint="Tên tài khoản"
+        android:drawableLeft="@drawable/ic_login_user"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:background="@null"
+        android:textColorHint="#ffffff"
+        android:layout_gravity="center"
+        android:hint="Mật khẩu"
+        android:drawableLeft="@drawable/ic_login_password"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnLogin"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="#ff39aa"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="Đăng nhập"
+                android:textSize="20dp"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/txtSignup"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:text="Chưa có tài khoản? Đăng ký"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+</LinearLayout>

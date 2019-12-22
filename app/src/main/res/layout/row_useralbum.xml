@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_margin="3dp"
+        android:id="@+id/imgRowUserAlbum"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+    <TextView
+        android:text="Tên album"
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:id="@+id/txtRowUserAlbumTenAlbum"
+        android:layout_toRightOf="@+id/imgRowUserAlbum"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="5dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="Tên Ca Sĩ"
+        android:layout_below="@id/txtRowUserAlbumTenAlbum"
+        android:textSize="16sp"
+        android:textColor="#e3e1de"
+        android:id="@+id/txtRowUserAlbumTenCaSiAlbum"
+        android:layout_toRightOf="@+id/imgRowUserAlbum"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="5dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:src="@drawable/icondelete"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imgRowUserAlbumLikebtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+</RelativeLayout>

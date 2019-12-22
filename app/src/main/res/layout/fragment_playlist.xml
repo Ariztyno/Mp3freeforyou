@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:textColor="#ff39aa"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
+        android:id="@+id/txtTitleplaylist"
+        android:textSize="25sp"
+        android:text="PLAYLISTS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ListView
+
+        android:layout_below="@+id/txtTitleplaylist"
+        android:id="@+id/lvPlaylist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+    <TextView
+        android:text="Xem thêm playlist"
+        android:textSize="20sp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/iconarrow"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/lvPlaylist"
+        android:id="@+id/txtViewmorePlaylist"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#ff39aa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

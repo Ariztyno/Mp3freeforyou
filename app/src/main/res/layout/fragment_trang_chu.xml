@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_trangchu"
+    android:scrollbars="none"
+    android:fillViewport="true">
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Banner"
+            android:id="@+id/fragmentbanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </fragment>
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Playlist"
+            android:id="@+id/fragmentplaylist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </fragment>
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Chude"
+            android:id="@+id/fragmentchude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Theloai"
+            android:id="@+id/fragmenttheloai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Album"
+            android:id="@+id/fragmentalbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Top5baihatduocyeuthichnhat"
+            android:id="@+id/fragmenttop5baihatduocyeuthichnhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
+    </LinearLayout>
+
+</ScrollView>

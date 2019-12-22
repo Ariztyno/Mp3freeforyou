@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_timkiem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Goiy_theloai_XemThemDSTheLoaiActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:background="@android:color/transparent"
+        android:id="@+id/ablUserGoiy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:outlineAmbientShadowColor="#000000"
+            app:popupTheme="@style/Theme.AppCompat.Light"
+            android:id="@+id/tbUserGoiyXemthemTheloai"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:theme="@style/ToolbarTheme">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:visibility="gone"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:backgroundTint="#ff39aa"
+                android:src="@drawable/iconadd"
+                android:scaleType="fitXY"
+                app:fabSize="normal"
+                android:id="@+id/floatingactionbuttonUserGoiy"
+                app:layout_anchorGravity="bottom|center"
+                app:layout_anchor="@id/appbarlayoutDSBaihat"
+                app:layout_behavior="@string/bottom_sheet_behavior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/ablUserGoiy"
+        android:id="@+id/recycleviewGoiyXemThemDSTheloai"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

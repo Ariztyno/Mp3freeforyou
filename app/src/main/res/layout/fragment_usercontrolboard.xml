@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:id="@+id/txtUserNameFrgUserControlBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:visibility="gone"
+        android:layout_below="@+id/txtUserNameFrgUserControlBoard"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:id="@+id/txtEmailFrgUserControlBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/relativelayoutUCB1"
+        android:background="@drawable/custom_rowtop5baihatduocyeuthichnhat"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/iconavatar"
+            android:id="@+id/imgCircleUserControlBoard"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+        <TextView
+            android:id="@+id/txtNameFrgUserControlBoard"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/imgCircleUserControlBoard"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="phannhutminh"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnLogout"
+            android:text="Đăng xuất"
+            android:layout_centerVertical="true"
+            android:textColor="#ffffff"
+            android:background="@drawable/roundshape_btn"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"/>
+        <com.facebook.login.widget.LoginButton
+            android:visibility="gone"
+            android:id="@+id/btnLogoutFacebook"
+            android:text="Đăng xuất"
+            android:layout_centerVertical="true"
+            android:textColor="#ffffff"
+            android:background="@drawable/roundshape_btn"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativelayoutUCB2"
+        android:layout_below="@+id/relativelayoutUCB1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/btnLichsu"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconhistory" />
+
+        <TextView
+            android:layout_below="@+id/btnLichsu"
+            android:id="@+id/txtlichsu"
+            android:textAlignment="center"
+            android:text="Lịch sử nghe"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnBaihat"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconmusic" />
+
+        <TextView
+            android:layout_below="@+id/btnBaihat"
+            android:id="@+id/txtBaihat"
+            android:text="Bài hát"
+            android:layout_alignParentRight="true"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:layout_marginRight="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnPlaylist"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/txtlichsu"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="70dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconplaylist" />
+
+        <TextView
+            android:layout_below="@+id/btnPlaylist"
+            android:id="@+id/txtPlaylist"
+            android:textAlignment="center"
+            android:text="Playlist"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnStar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/txtPlaylist"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="70dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconstar" />
+
+        <TextView
+            android:layout_below="@+id/btnStar"
+            android:id="@+id/txtStar"
+            android:textAlignment="center"
+            android:text="Gợi ý"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/txtStar"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="70dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconprofile" />
+
+        <TextView
+            android:layout_below="@+id/btnProfile"
+            android:id="@+id/txtProfile"
+            android:textAlignment="center"
+            android:text="Tài khoản"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnAlbum"
+            android:layout_below="@+id/txtBaihat"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconalbum2" />
+
+        <TextView
+            android:layout_below="@+id/btnAlbum"
+            android:id="@+id/txtAlbum"
+            android:text="Album"
+            android:layout_alignParentRight="true"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:layout_marginRight="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnSinger"
+            android:layout_below="@+id/txtAlbum"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconsinger" />
+
+        <TextView
+            android:layout_below="@+id/btnSinger"
+            android:id="@+id/txtSinger"
+            android:text="Ca sĩ"
+            android:layout_alignParentRight="true"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:layout_marginRight="70dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</RelativeLayout>
