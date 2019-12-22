@@ -57,7 +57,7 @@ public class UserProfileActivity extends AppCompatActivity {
         anhxa();
         init();
         ChangeAvatarevent();
-        //Uploadevent(); //not use
+        ChangeProfileEvent(); //not use
         Changepasswordevent();
         Xacnhandoimatkhauevent();
         Xacnhandoihosoevent();
@@ -197,7 +197,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void Uploadevent() {
+    private void ChangeProfileEvent() {
         btnDoihoso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

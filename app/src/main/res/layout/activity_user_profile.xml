@@ -67,9 +67,9 @@
         android:layout_below="@+id/relativelayoutUserProfile2"
         android:id="@+id/relativelayoutUserProfile3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <androidx.cardview.widget.CardView
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/cvDoimatkhau"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
@@ -80,7 +80,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <TextView
                     android:id="@+id/txtTileDoimatkhau"
                     android:layout_marginTop="10dp"
@@ -169,7 +168,7 @@
         android:layout_height="match_parent">
         <androidx.cardview.widget.CardView
             android:id="@+id/cvDoihoso"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             app:cardCornerRadius="12sp"
