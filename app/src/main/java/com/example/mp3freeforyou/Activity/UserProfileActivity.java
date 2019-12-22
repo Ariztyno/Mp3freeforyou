@@ -48,7 +48,7 @@ public class UserProfileActivity extends AppCompatActivity {
     CardView cvDoimatkhau,cvDoihoso;
     EditText edtNewpass,edtRenewpass,edtNewname,edtNewemail,edtNewavatar;
     ImageView imageView;
-    Button btnDoimatkhau,btnDoihoso,btnXacnhanDoimatkhau,btnXacnhanDoihoso;
+    Button btnDoimatkhau,btnDoihoso,btnXacnhanDoimatkhau,btnXacnhanDoihoso,btnDoiavatar;
     CircleImageView circleImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +56,20 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         anhxa();
         init();
-        Uploadevent();
+        ChangeAvatarevent();
+        //Uploadevent(); //not use
         Changepasswordevent();
         Xacnhandoimatkhauevent();
         Xacnhandoihosoevent();
+    }
+
+    private void ChangeAvatarevent() {
+        btnDoiavatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void Xacnhandoihosoevent() {
@@ -213,6 +223,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //btn
         btnDoimatkhau=findViewById(R.id.btnDoimatkhau);
         btnDoihoso=findViewById(R.id.btnDoihoso);
+        btnDoiavatar=findViewById(R.id.btnDoiavatar);
         btnXacnhanDoimatkhau=findViewById(R.id.btnXacnhandoimatkhau);
         btnXacnhanDoihoso=findViewById(R.id.btnXacnhandoihoso);
 

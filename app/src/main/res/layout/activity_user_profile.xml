@@ -71,6 +71,7 @@
         <androidx.cardview.widget.CardView
             android:visibility="gone"
             android:id="@+id/cvDoimatkhau"
+            android:layout_centerVertical="true"
             android:layout_margin="10dp"
             app:cardCornerRadius="12sp"
             app:cardBackgroundColor="#73000000"
