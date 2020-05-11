@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.UserPlaylistActivity"
+    android:background="@drawable/bg_userplaylist">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:background="@android:color/transparent"
+        android:id="@+id/ablUserCasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:outlineAmbientShadowColor="#000000"
+            app:popupTheme="@style/Theme.AppCompat.Light"
+            android:id="@+id/tbUserTheloai"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:theme="@style/ToolbarTheme">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:visibility="gone"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:backgroundTint="#ff39aa"
+                android:src="@drawable/iconadd"
+                android:scaleType="fitXY"
+                app:fabSize="normal"
+                android:id="@+id/floatingactionbuttonUserCasi"
+                app:layout_anchorGravity="bottom|center"
+                app:layout_anchor="@id/appbarlayoutDSBaihat"
+                app:layout_behavior="@string/bottom_sheet_behavior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:id="@+id/scrollViewUserPlaylist"
+        android:layout_below="@+id/ablUserCasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:background="@color/colorPink"
+                android:visibility="visible"
+                android:id="@+id/theloaiyeuthich"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thể loại yêu thích"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@+id/theloaiyeuthich"
+                android:layout_marginTop="10dp"
+                android:id="@+id/reUserTheloaiYeuthich"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

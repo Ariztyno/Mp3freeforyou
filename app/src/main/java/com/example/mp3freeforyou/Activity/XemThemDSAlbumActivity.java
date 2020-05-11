@@ -63,7 +63,7 @@ public class XemThemDSAlbumActivity extends AppCompatActivity {
     private void init() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Albums");
+        getSupportActionBar().setTitle("Album");
 
         toolbar.setTitleTextColor(Color.parseColor("#ff39aa"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

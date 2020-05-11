@@ -1,19 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
+
+    <RelativeLayout
+        android:id="@+id/relativelayoutIdRank"
+        android:layout_width="50dp"
+        android:background="#ff39aa"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:id="@+id/rankbaihat"
+            android:text="100"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:background="#ff39aa"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"/>
+    </RelativeLayout>
+
+
     <ImageView
         android:id="@+id/imgRowTop5"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_toRightOf="@+id/relativelayoutIdRank"
+        android:layout_toEndOf="@+id/relativelayoutIdRank"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:scaleType="fitXY"/>
     <TextView
-        android:text="DOOM"
+        android:text="DOOMffffffffffffffffffffffffffffffffffffff"
         android:textStyle="bold"
         android:id="@+id/txtRowTop5TenBaiHat"
         android:textColor="#38499f"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:ellipsize="end"
         android:maxLines="1"
         android:layout_toRightOf="@+id/imgRowTop5"
@@ -21,13 +46,15 @@
         android:layout_marginLeft="5dp"
         android:maxWidth="150dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgRowTop5"
+        android:layout_marginStart="5dp" />
     <TextView
-        android:text="Cabaymau"
+        android:text="Cabaymauggggggggggggggggggggggggggg"
         android:textStyle="bold"
         android:id="@+id/txtRowTop5Tencasi"
         android:textColor="#ff39aa"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:singleLine="true"
         android:layout_toRightOf="@+id/imgRowTop5"
         android:layout_marginTop="7dp"
@@ -36,21 +63,31 @@
         android:maxWidth="150dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="7dp"
+        android:drawableLeft="@drawable/iconear_white_20"
+        android:id="@+id/txtEarNum"
+        android:layout_toLeftOf="@id/imgExplore"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="   100T"
+        android:textColor="#ffffff"/>
+    <TextView
+        android:layout_marginTop="7dp"
+        android:drawableLeft="@drawable/iconloved_20"
+        android:id="@+id/txtLoveNum"
+        android:layout_toLeftOf="@id/imgExplore"
+        android:layout_below="@+id/txtEarNum"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="   100T"
+        android:textColor="#ffffff"/>
     <ImageView
-        android:layout_marginRight="10dp"
-        android:src="@drawable/iconlove"
-        android:id="@+id/imgLikeBtnRowTop5"
+        android:layout_margin="10dp"
+        android:src="@drawable/iconexplore_white"
+        android:id="@+id/imgExplore"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-    <ImageView
-        android:layout_marginRight="50dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/iconaddsongtoplaylist"
-        android:id="@+id/imgAddtoplaylistBtnRowTop5"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
 </RelativeLayout>

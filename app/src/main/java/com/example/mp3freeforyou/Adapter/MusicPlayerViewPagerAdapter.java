@@ -21,6 +21,11 @@ public class MusicPlayerViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_UNCHANGED;
+    }
+
+    @Override
     public int getCount() {
         return fragmentArrayList.size();
     }

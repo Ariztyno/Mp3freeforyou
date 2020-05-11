@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.FirstTimeStartingActivity"
+    android:orientation="vertical"
+    android:background="@drawable/bg_firstime_1">
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:id="@+id/imageView"
+        android:layout_width="217dp"
+        android:layout_height="207dp"
+        app:srcCompat="@drawable/logo" />
+    <LinearLayout
+        android:layout_margin="40dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="#446cad"
+            android:text="Chào mừng bạn đến với ứng dụng nghe nhạc online. Bạn có thể thực hiện bài trắc nghiệm sao để có thể được gợi ý nhạc tốt hơn"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnExttomenu"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/roundshape_btn"
+            android:text="Bỏ qua"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnQuiz"
+            android:layout_marginLeft="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/roundshape_btn"
+            android:text="Thực hiện trắc nghiệm"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="#446cad"
+            android:text="Hoặc sử dụng tài khoản để đươc hỗ trợ thêm nhiều tính năng hơn"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <Button
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/btnDangnhaphoacdangky"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/roundshape_btn"
+            android:text="Đăng nhập hoặc đăng ký"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+</LinearLayout>

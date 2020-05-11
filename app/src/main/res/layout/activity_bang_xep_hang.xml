@@ -35,11 +35,87 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    <ListView
+    <RelativeLayout
         android:layout_below="@+id/ablUserGoiy"
-        android:id="@+id/lvXemthembangxephang"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:id="@+id/relativelayoutRankTab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtLikeRank"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="TOP Lượt Thích"
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:drawableLeft="@drawable/iconarrow_down_20"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txtListenRank"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:text="TOP Lượt Nghe"
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:drawableLeft="@drawable/iconarrow_up_20c"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLike"
+        android:layout_below="@+id/relativelayoutRankTab">
+        <ListView
+            android:id="@+id/lvXemthembangxephangLike"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeListen"
+        android:layout_below="@+id/relativelayoutRankTab">
+        <ListView
+            android:id="@+id/lvXemthembangxephangListen"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/emptyLikeRank"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:text="Danh sách bị trống"
+        android:textAlignment="center" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/emptyListenRank"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:text="Danh sách bị trống"
+        android:textAlignment="center" />
 </RelativeLayout>

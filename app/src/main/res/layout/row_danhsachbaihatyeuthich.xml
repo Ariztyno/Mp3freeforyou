@@ -39,6 +39,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
+            android:layout_margin="10dp"
+            android:src="@drawable/iconexplore_black"
+            android:id="@+id/imgExplore"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <!--
+        <ImageView
+            android:visibility="gone"
             android:src="@drawable/icondelete"
             android:layout_marginRight="5dp"
             android:layout_centerVertical="true"
@@ -47,6 +57,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"/>
         <ImageView
+            android:visibility="gone"
             android:src="@drawable/iconaddsongtoplaylist_black"
             android:layout_marginRight="50dp"
             android:layout_centerVertical="true"
@@ -54,5 +65,15 @@
             android:id="@+id/imgAddsongtoplaylistBtnRowDSBaihatYeuthich"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
+        <ImageView
+            android:visibility="gone"
+            android:src="@drawable/icondownload_black"
+            android:layout_marginRight="100dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/imgDownloadBtnRowDSBaihatYeuthich"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        -->
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -9,7 +9,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"/>
     <TextView
-        android:text="Tên Bài Hát"
+        android:text="Tên ca sĩ"
         android:textSize="17sp"
         android:textColor="#ffffff"
         android:id="@+id/txtRowFragmenTimkiemCasiTenCaSi"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:text="Tên Ca Sĩ"
+        android:text="Thông tin casi"
         android:layout_below="@id/txtRowFragmenTimkiemCasiTenCaSi"
         android:textSize="16sp"
         android:textColor="#e3e1de"
@@ -38,6 +38,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ImageView
+        android:src="@drawable/iconexplore_white"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imgRowFragmentTimKiemCasiExplore"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <ImageView
+        android:visibility="gone"
         android:src="@drawable/iconlove"
         android:layout_marginRight="10dp"
         android:layout_centerVertical="true"

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_margin="3dp"
+        android:id="@+id/imgDSChan_Baihat"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+    <TextView
+        android:text="Tên Bài Hátuuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        android:textSize="17sp"
+        android:textColor="#38499f"
+        android:id="@+id/txtRowDSChan_TenBaiHat"
+        android:layout_toRightOf="@+id/imgDSChan_Baihat"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="5dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="Tên Ca Sĩ"
+        android:layout_below="@id/txtRowDSChan_TenBaiHat"
+        android:textSize="16sp"
+        android:textColor="#ff39aa"
+        android:id="@+id/txtRowDSChan_TenCaSi"
+        android:layout_toRightOf="@+id/imgDSChan_Baihat"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="5dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:layout_margin="10dp"
+        android:src="@drawable/iconexplore_white"
+        android:id="@+id/imgExplore"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+</RelativeLayout>

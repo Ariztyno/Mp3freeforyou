@@ -29,15 +29,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.mp3freeforyou.Ultils.Constants.banner_size;
+
 public class Fragment_Banner extends Fragment {
+    int temp=0;
+
     View view;
     ViewPager viewPager;
     CircleIndicator circleIndicator;
 
     BannerAdapter bannerAdapter;
     //chuyen page sau thời gian nhất định
-    Runnable runnable;
-    Handler handler;
+    Runnable runnable,refreshrunnable;
+    Handler handler,refreshHanler;
     int currentitem;
 
     @Nullable
@@ -45,7 +49,12 @@ public class Fragment_Banner extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_banner,container,false);
         anhxa();
-        getData();
+        refreshHanler=new Handler();
+        refreshrunnable= () -> {
+            getData();
+        };
+        refreshHanler.postDelayed(refreshrunnable,3000);
+        //getData();
         return view;
     }
 
@@ -65,20 +74,19 @@ public class Fragment_Banner extends Fragment {
                 viewPager.setAdapter(bannerAdapter);
                 circleIndicator.setViewPager(viewPager);
                 handler=new Handler();
-                runnable=new Runnable() {
-                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                    @Override
-                    public void run() {
-                        currentitem=viewPager.getCurrentItem();
-                        currentitem++;
-                        //if(currentitem>=viewPager.getAdapter().getCount()){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            if(currentitem>= Objects.requireNonNull(viewPager.getAdapter()).getCount()){
-                                currentitem=0;
-                            }
+                runnable= () -> {
+                    currentitem=viewPager.getCurrentItem();
+                    temp=currentitem;
+                    currentitem+=1;
+
+                    if(currentitem-temp==1){
+                        if(currentitem >= banners.size()){
+                            currentitem=0;
                         }
                         viewPager.setCurrentItem(currentitem,true);
                         handler.postDelayed(runnable,4500);
+                    }else {
+                        handler.postDelayed(refreshrunnable,4500);
                     }
                 };
                 handler.postDelayed(runnable,4500);

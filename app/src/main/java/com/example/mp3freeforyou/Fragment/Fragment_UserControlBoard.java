@@ -17,10 +17,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mp3freeforyou.Activity.DanhsachbaihatActivity;
 import com.example.mp3freeforyou.Activity.GoiYActivity;
 import com.example.mp3freeforyou.Activity.MainActivity;
+import com.example.mp3freeforyou.Activity.QuanLyDSChanActivity;
 import com.example.mp3freeforyou.Activity.UserAlbumActivity;
 import com.example.mp3freeforyou.Activity.UserPlaylistActivity;
 import com.example.mp3freeforyou.Activity.UserProfileActivity;
 import com.example.mp3freeforyou.Activity.UserSingerActivity;
+import com.example.mp3freeforyou.Activity.UserTheloaibaihatActivity;
 import com.example.mp3freeforyou.Model.Hosonguoidung;
 import com.example.mp3freeforyou.R;
 import com.example.mp3freeforyou.Ultils.PreferenceUtils;
@@ -38,12 +40,15 @@ import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_ARRAYCASI;
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_ARRAYTHELOAI;
+
 public class Fragment_UserControlBoard extends Fragment {
     View view;
     TextView txtName,txtUsername,txtEmail;
     Button btnLogout;
     LoginButton btnLogoutFacebook;
-    ImageButton btnLichsu,btnBaihat,btnAlbum,btnPlaylist,btnSinger,btnGoiy,btnProfile;
+    ImageButton btnLichsu,btnBaihat,btnAlbum,btnPlaylist,btnSinger,btnGoiy,btnProfile,btnTheloai,btnBanManage;
     CircleImageView circleImageViewAvatar;
     String email;
     String password;
@@ -66,9 +71,31 @@ public class Fragment_UserControlBoard extends Fragment {
         LikedSong();
         LikedSinger();
         LikedAlbum();
+        LikedTypeMusic();
+        BanManagement();
         Goiy();
         Logout();
         return view;
+    }
+
+    private void BanManagement() {
+        btnBanManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), QuanLyDSChanActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void LikedTypeMusic() {
+        btnTheloai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), UserTheloaibaihatActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void Goiy() {
@@ -147,22 +174,27 @@ public class Fragment_UserControlBoard extends Fragment {
 
     //dawg xuất bình thườn
     private void Logout() {
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreferenceUtils.saveAvatar(null,getContext());
-                PreferenceUtils.saveName(null,getContext());
-                PreferenceUtils.saveUsername(null,getContext());
-                PreferenceUtils.saveEmail(null,getContext());
-                PreferenceUtils.savePassword(null,getContext());
+        btnLogout.setOnClickListener(v -> {
+            PreferenceUtils.saveAvatar(null,getContext());
+            PreferenceUtils.saveName(null,getContext());
+            PreferenceUtils.saveUsername(null,getContext());
+            PreferenceUtils.saveEmail(null,getContext());
+            PreferenceUtils.savePassword(null,getContext());
 
+            //clear quiz
+            KEY_ARRAYTHELOAI.clear();//clear mang
+            KEY_ARRAYCASI.clear();
+            PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice(KEY_ARRAYTHELOAI,getContext());
+            PreferenceUtils.saveListIdCasifromQuizChoice(KEY_ARRAYCASI,getContext());
+            PreferenceUtils.saveListenHistoryForNoAcc("",getContext());
 
-                /*FragmentTransaction fm = getFragmentManager().beginTransaction();
-                fm.replace(R.id.fragment_container,new Fragment_BeforeLogin());
-                fm.commit();*/
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-            }
+            //getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_BeforeLogin()).commit();
+            FragmentTransaction fm = getFragmentManager().beginTransaction();
+            fm.replace(R.id.fragment_container,new Fragment_BeforeLogin());
+            fm.commit();
+            /*Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);*/
+            //finish();
         });
     }
 
@@ -173,7 +205,7 @@ public class Fragment_UserControlBoard extends Fragment {
             txtEmail.setText(PreferenceUtils.getEmail(getContext()));
             txtName.setText(PreferenceUtils.getName(getContext()));
             txtUsername.setText(username);
-            Picasso.with(getContext()).load(PreferenceUtils.getAvatar(getContext())).into(circleImageViewAvatar);
+            Picasso.with(getContext()).load(PreferenceUtils.getAvatar(getContext())).placeholder(R.drawable.loading).into(circleImageViewAvatar);
         }
     }
 
@@ -188,10 +220,12 @@ public class Fragment_UserControlBoard extends Fragment {
         btnAlbum=view.findViewById(R.id.btnAlbum);
         btnPlaylist=view.findViewById(R.id.btnPlaylist);
         btnSinger=view.findViewById(R.id.btnSinger);
+        btnTheloai=view.findViewById(R.id.btnTypeMusic);
         btnGoiy=view.findViewById(R.id.btnStar);
         circleImageViewAvatar=view.findViewById(R.id.imgCircleUserControlBoard);
         btnLogoutFacebook=view.findViewById(R.id.btnLogoutFacebook);
         btnProfile=view.findViewById(R.id.btnProfile);
+        btnBanManage=view.findViewById(R.id.btnBanManage);
     }
 
     //sự kiện theo dõi AccessToken dùng cho việc đăng xuất hoặc load trang đã đăng nhập thành công
@@ -210,8 +244,13 @@ public class Fragment_UserControlBoard extends Fragment {
                 /*FragmentTransaction fm = getFragmentManager().beginTransaction();
                 fm.replace(R.id.fragment_container,new Fragment_BeforeLogin());
                 fm.commit();*/
-            }else
+            }else {
                 loadfacebookprofile(currentAccessToken); //gọi hàm load profile
+            }
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            getActivity().finish();
         }
     };
 
@@ -239,7 +278,7 @@ public class Fragment_UserControlBoard extends Fragment {
                     //hosonguoidung.setHoVaTen(PreferenceUtils.getName(getContext()));
                     //hosonguoidung.setId();
 
-                    Picasso.with(getContext()).load(PreferenceUtils.getAvatar(getContext())).into(circleImageViewAvatar);
+                    Picasso.with(getContext()).load(PreferenceUtils.getAvatar(getContext())).placeholder(R.drawable.loading).into(circleImageViewAvatar);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -268,6 +307,13 @@ public class Fragment_UserControlBoard extends Fragment {
                     PreferenceUtils.saveUsername(null,getContext());
                     PreferenceUtils.saveEmail(null,getContext());
                     PreferenceUtils.savePassword(null,getContext());
+
+                    //clear quiz
+                    KEY_ARRAYTHELOAI.clear();//clear mang
+                    KEY_ARRAYCASI.clear();
+                    PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice(KEY_ARRAYTHELOAI,getContext());
+                    PreferenceUtils.saveListIdCasifromQuizChoice(KEY_ARRAYCASI,getContext());
+
 
                 }
             });

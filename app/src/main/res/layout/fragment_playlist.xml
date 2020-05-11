@@ -6,12 +6,13 @@
     android:background="@android:color/transparent">
 
     <TextView
+        android:textStyle="bold"
         android:textColor="#ff39aa"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_margin="15dp"
         android:id="@+id/txtTitleplaylist"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:text="PLAYLISTS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

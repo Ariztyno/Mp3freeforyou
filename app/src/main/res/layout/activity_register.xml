@@ -37,7 +37,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <RelativeLayout
-        android:layout_margin="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:padding="10dp"
         android:layout_below="@+id/txtThongBao"
         android:id="@+id/relativelayoutRegister1"
@@ -54,6 +63,7 @@
         <EditText
             android:maxLength="12"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLines="1"
             android:layout_marginLeft="10dp"
             android:textSize="12sp"
             android:layout_toRightOf="@+id/TenDangNhap"
@@ -62,7 +72,16 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
     <RelativeLayout
-        android:layout_margin="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:padding="10dp"
         android:layout_below="@+id/relativelayoutRegister1"
         android:id="@+id/relativelayoutRegister2"
@@ -78,6 +97,7 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:layout_marginLeft="10dp"
             android:textSize="12sp"
             android:layout_toRightOf="@+id/Email"
@@ -85,79 +105,159 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:layout_below="@+id/relativelayoutRegister2"
         android:id="@+id/relativelayoutRegister3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayoutRegister2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp">
+
         <TextView
-            android:textColor="@color/colorPink"
-            android:textStyle="bold"
-            android:textSize="12sp"
             android:id="@+id/matkhau"
-            android:text="Mật khẩu:"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:inputType="textPassword"
-            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Mật khẩu:"
+            android:textColor="@color/colorPink"
             android:textSize="12sp"
-            android:maxLength="15"
-            android:layout_toRightOf="@+id/matkhau"
+            android:textStyle="bold" />
+
+        <EditText
             android:id="@+id/edtPasswordRegister"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/matkhau"
+            android:digits="0123456789qưertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.,/';[]`~!@#$%;^*()_+-=&amp;?><&quot;"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:textSize="12sp" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:layout_below="@+id/relativelayoutRegister3"
         android:id="@+id/relativelayoutRegister4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayoutRegister3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp">
+
         <TextView
-            android:textColor="@color/colorPink"
-            android:textStyle="bold"
-            android:textSize="12sp"
             android:id="@+id/rematkhau"
-            android:text="Nhập lại mật khẩu:"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:inputType="textPassword"
-            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Nhập lại mật khẩu:"
+            android:textColor="@color/colorPink"
             android:textSize="12sp"
-            android:layout_toRightOf="@+id/rematkhau"
+            android:textStyle="bold" />
+
+        <EditText
             android:id="@+id/edtRePasswordRegister"
-            android:maxLength="15"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/rematkhau"
+            android:digits="0123456789qưertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.,/';[]`~!@#$%;^*()_+-=&amp;?><&quot;"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:textSize="12sp" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:layout_below="@+id/relativelayoutRegister4"
         android:id="@+id/relativelayoutRegister5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayoutRegister4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp">
+
         <TextView
-            android:textColor="@color/colorPink"
-            android:textStyle="bold"
-            android:textSize="12sp"
             android:id="@+id/hoten"
-            android:text="Họ và tên:"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:inputType="text"
-            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên:"
+            android:textColor="@color/colorPink"
             android:textSize="12sp"
-            android:layout_toRightOf="@+id/hoten"
+            android:textStyle="bold" />
+
+        <EditText
             android:id="@+id/edtNameRegister"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/hoten"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativelayoutRegister6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayoutRegister5"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp">
+        <CheckBox
+            android:id="@+id/cbSaoluudata"
+            android:buttonTint="#ff39aa"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu dữ liệu nghe nhạc?"
+            android:textColor="@color/colorPink"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:text="Lưu ý: Tài khoản được tạo bao gồm danh sách kết quả gợi ý, danh sách chặn nếu check vào ô trên"
+            android:layout_below="@+id/cbSaoluudata"
+            android:textColor="@color/colorPink"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
     </RelativeLayout>
     <Button
         android:textStyle="bold"
@@ -166,7 +266,7 @@
         android:background="@drawable/roundshape_btn"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:layout_below="@id/relativelayoutRegister5"
+        android:layout_below="@id/relativelayoutRegister6"
         android:id="@+id/btnRegister"
         android:layout_width="200dp"
         android:layout_height="wrap_content">

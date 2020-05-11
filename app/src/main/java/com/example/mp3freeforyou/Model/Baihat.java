@@ -20,9 +20,15 @@ public class Baihat implements Parcelable {
     @SerializedName("LinkBaiHat")
     @Expose
     private String linkBaiHat;
+    @SerializedName("LinkVideo")
+    @Expose
+    private String linkVideo;
     @SerializedName("LuotThich")
     @Expose
     private String luotThich;
+    @SerializedName("LuotNghe")
+    @Expose
+    private String luotNghe;
     @SerializedName("IdCaSi")
     @Expose
     private String idCaSi;
@@ -33,12 +39,40 @@ public class Baihat implements Parcelable {
     @Expose
     private String tenAlbum;
 
+    public Baihat(String idBaiHat, String tenBaiHat, String hinhBaiHat, String linkBaiHat, String linkVideo, String luotThich, String luotNghe, String idCaSi, String idTheLoai, String tenAlbum) {
+        this.idBaiHat = idBaiHat;
+        this.tenBaiHat = tenBaiHat;
+        this.hinhBaiHat = hinhBaiHat;
+        this.linkBaiHat = linkBaiHat;
+        this.linkVideo = linkVideo;
+        this.luotThich = luotThich;
+        this.luotNghe = luotNghe;
+        this.idCaSi = idCaSi;
+        this.idTheLoai = idTheLoai;
+        this.tenAlbum = tenAlbum;
+    }
+
+    public Baihat() {
+        this.idBaiHat = "";
+        this.tenBaiHat = "";
+        this.hinhBaiHat = "";
+        this.linkBaiHat = "";
+        this.linkVideo = "";
+        this.luotThich = "";
+        this.luotNghe = "";
+        this.idCaSi = "";
+        this.idTheLoai = "";
+        this.tenAlbum = "";
+    }
+
     protected Baihat(Parcel in) {
         idBaiHat = in.readString();
         tenBaiHat = in.readString();
         hinhBaiHat = in.readString();
         linkBaiHat = in.readString();
+        linkVideo= in.readString();
         luotThich = in.readString();
+        luotNghe= in.readString();
         idCaSi = in.readString();
         idTheLoai = in.readString();
         tenAlbum = in.readString();
@@ -88,12 +122,28 @@ public class Baihat implements Parcelable {
         this.linkBaiHat = linkBaiHat;
     }
 
+    public String getLinkVideo() {
+        return linkVideo;
+    }
+
+    public void setLinkVideo(String linkVideo) {
+        this.linkVideo = linkVideo;
+    }
+
     public String getLuotThich() {
         return luotThich;
     }
 
     public void setLuotThich(String luotThich) {
         this.luotThich = luotThich;
+    }
+
+    public String getLuotNghe() {
+        return luotNghe;
+    }
+
+    public void setLuotNghe(String luotNghe) {
+        this.luotNghe = luotNghe;
     }
 
     public String getIdCaSi() {
@@ -131,7 +181,9 @@ public class Baihat implements Parcelable {
         dest.writeString(tenBaiHat);
         dest.writeString(hinhBaiHat);
         dest.writeString(linkBaiHat);
+        dest.writeString(linkVideo);
         dest.writeString(luotThich);
+        dest.writeString(luotNghe);
         dest.writeString(idCaSi);
         dest.writeString(idTheLoai);
         dest.writeString(tenAlbum);

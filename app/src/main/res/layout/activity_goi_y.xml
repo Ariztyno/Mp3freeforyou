@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_userplaylist"
+    android:background="@drawable/bg_4"
     tools:context=".Activity.GoiYActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:background="@android:color/transparent"
@@ -62,6 +62,13 @@
             <fragment
                 android:name="com.example.mp3freeforyou.Fragment.Fragment_Goiy_Casi"
                 android:id="@+id/fragmentcasi_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </fragment>
+            <fragment
+                android:name="com.example.mp3freeforyou.Fragment.Fragment_Goiy_Playlist"
+                android:id="@+id/fragmentPlaylist_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

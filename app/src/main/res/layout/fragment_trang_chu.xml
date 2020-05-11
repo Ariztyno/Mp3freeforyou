@@ -18,6 +18,13 @@
 
         </fragment>
         <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Goi_Y"
+            android:id="@+id/fragmentgoiy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </fragment>
+        <fragment
             android:name="com.example.mp3freeforyou.Fragment.Fragment_Playlist"
             android:id="@+id/fragmentplaylist"
             android:layout_width="match_parent"
@@ -39,6 +46,12 @@
         <fragment
             android:name="com.example.mp3freeforyou.Fragment.Fragment_Album"
             android:id="@+id/fragmentalbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
+        <fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_Casi"
+            android:id="@+id/fragmentcasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </fragment>

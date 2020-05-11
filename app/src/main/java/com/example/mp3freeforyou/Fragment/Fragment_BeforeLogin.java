@@ -12,13 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mp3freeforyou.Activity.DanhsachbaihatActivity;
 import com.example.mp3freeforyou.Activity.LoginActivity;
+import com.example.mp3freeforyou.Activity.QuanLyDSChanActivity;
+import com.example.mp3freeforyou.Activity.QuizTheloaibaihatActivity;
 import com.example.mp3freeforyou.R;
+import com.example.mp3freeforyou.Ultils.PreferenceUtils;
 
 public class Fragment_BeforeLogin extends Fragment {
     View view;
 
-    Button btnDangnhap;
+    Button btnDangnhap,btnQuizUpdateBeforeLogin,btnQldschan,btnLichsuphat;
     TextView txtContent;
     @Nullable
     @Override
@@ -26,7 +30,43 @@ public class Fragment_BeforeLogin extends Fragment {
         view=inflater.inflate(R.layout.fragment_beforelogin,container,false);
         anhxa();
         Dentrangdangnhaphoacdangky();
+        UpdateQuizSothich();
+        Dentrangquanlydanhsachchan();
+        DenTrangLichSuNghe_ForNonLogging();
         return view;
+    }
+
+    private void DenTrangLichSuNghe_ForNonLogging() {
+        btnLichsuphat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), DanhsachbaihatActivity.class);
+                String text= "notlogin";//PreferenceUtils.getUsername(getContext());
+                intent.putExtra("lichsu",text);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void Dentrangquanlydanhsachchan() {
+        btnQldschan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), QuanLyDSChanActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void UpdateQuizSothich() {
+        btnQuizUpdateBeforeLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), QuizTheloaibaihatActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void Dentrangdangnhaphoacdangky() {
@@ -42,6 +82,9 @@ public class Fragment_BeforeLogin extends Fragment {
     private void anhxa() {
         txtContent=view.findViewById(R.id.txtFrgBeforeLoginContent);
         btnDangnhap=view.findViewById(R.id.btnToLoginpage);
+        btnQuizUpdateBeforeLogin=view.findViewById(R.id.btnQuizUpdateBeforeLogin);
+        btnQldschan=view.findViewById(R.id.btnQldschan);
+        btnLichsuphat=view.findViewById(R.id.btnLichsuphat);
     }
 
     @Override

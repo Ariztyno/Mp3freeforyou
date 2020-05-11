@@ -73,7 +73,7 @@
             android:background="@drawable/roundshape_btn"
             android:gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
     <RelativeLayout
@@ -81,157 +81,234 @@
         android:layout_below="@+id/relativelayoutUCB1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:id="@+id/firstline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnLichsu"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/btnStar"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconhistory" />
 
-        <ImageButton
-            android:id="@+id/btnLichsu"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="20dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconhistory" />
+            <TextView
+                android:layout_toLeftOf="@+id/btnStar"
+                android:layout_below="@+id/btnLichsu"
+                android:id="@+id/txtlichsu"
+                android:textAlignment="center"
+                android:text="Lịch sử nghe"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_below="@+id/btnLichsu"
-            android:id="@+id/txtlichsu"
-            android:textAlignment="center"
-            android:text="Lịch sử nghe"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+            <ImageButton
+                android:id="@+id/btnStar"
+                android:layout_centerHorizontal="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="35dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconstar" />
 
-        <ImageButton
-            android:id="@+id/btnBaihat"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="20dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconmusic" />
+            <TextView
+                android:layout_below="@+id/btnStar"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txtStar"
+                android:layout_toRightOf="@+id/btnLichsu"
+                android:textAlignment="center"
+                android:text="Gợi ý"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="35dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_below="@+id/btnBaihat"
-            android:id="@+id/txtBaihat"
-            android:text="Bài hát"
-            android:layout_alignParentRight="true"
-            android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:layout_marginRight="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+            <ImageButton
+                android:id="@+id/btnBanManage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_toRightOf="@+id/txtStar"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="35dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconforbidden" />
 
-        <ImageButton
-            android:id="@+id/btnPlaylist"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/txtlichsu"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="70dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconplaylist" />
+            <TextView
+                android:layout_below="@+id/btnBanManage"
+                android:id="@+id/txtBanManage"
+                android:layout_toRightOf="@+id/txtStar"
+                android:textAlignment="center"
+                android:textSize="12dp"
+                android:text="Danh sách chặn"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_below="@+id/btnPlaylist"
-            android:id="@+id/txtPlaylist"
-            android:textAlignment="center"
-            android:text="Playlist"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/secondline"
+            android:layout_below="@+id/firstline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:visibility="visible"
+                android:id="@+id/btnBaihat"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_toRightOf="@+id/btnPlaylist"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="20dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconmusic" />
 
-        <ImageButton
-            android:id="@+id/btnStar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/txtPlaylist"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="70dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconstar" />
+            <TextView
+                android:layout_toRightOf="@+id/btnPlaylist"
+                android:layout_below="@+id/btnBaihat"
+                android:id="@+id/txtBaihat"
+                android:text="Bài hát"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="35dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_below="@+id/btnStar"
-            android:id="@+id/txtStar"
-            android:textAlignment="center"
-            android:text="Gợi ý"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+            <ImageButton
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btnPlaylist"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="35dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconplaylist" />
 
-        <ImageButton
-            android:id="@+id/btnProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/txtStar"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="70dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconprofile" />
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/btnPlaylist"
+                android:id="@+id/txtPlaylist"
+                android:textAlignment="center"
+                android:text="Playlist"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="35dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:id="@+id/btnAlbum"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/btnPlaylist"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconalbum2" />
 
-        <TextView
-            android:layout_below="@+id/btnProfile"
-            android:id="@+id/txtProfile"
-            android:textAlignment="center"
-            android:text="Tài khoản"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_below="@+id/btnAlbum"
+                android:layout_toLeftOf="@+id/btnPlaylist"
+                android:id="@+id/txtAlbum"
+                android:text="Album"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/thirdline"
+            android:layout_below="@+id/secondline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnSinger"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_toLeftOf="@+id/btnTypeMusic"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginLeft="20dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconsinger" />
 
-        <ImageButton
-            android:id="@+id/btnAlbum"
-            android:layout_below="@+id/txtBaihat"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="20dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconalbum2" />
+            <TextView
+                android:layout_below="@+id/btnSinger"
+                android:id="@+id/txtSinger"
+                android:text="Ca sĩ"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:layout_toLeftOf="@+id/btnTypeMusic"
+                android:layout_marginRight="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:id="@+id/btnTypeMusic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconpiechart" />
 
-        <TextView
-            android:layout_below="@+id/btnAlbum"
-            android:id="@+id/txtAlbum"
-            android:text="Album"
-            android:layout_alignParentRight="true"
-            android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:layout_marginRight="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/btnTypeMusic"
+                android:id="@+id/txtTypeMusic"
+                android:text="Thể loại"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:id="@+id/btnProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_toRightOf="@id/btnTypeMusic"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="35dp"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/iconprofile" />
 
-        <ImageButton
-            android:id="@+id/btnSinger"
-            android:layout_below="@+id/txtAlbum"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="20dp"
-            android:background="#00000000"
-            android:scaleType="fitXY"
-            android:src="@drawable/iconsinger" />
+            <TextView
+                android:layout_below="@+id/btnProfile"
+                android:id="@+id/txtProfile"
+                android:layout_toRightOf="@id/btnTypeMusic"
+                android:text="Tài khoản"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="35dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-        <TextView
-            android:layout_below="@+id/btnSinger"
-            android:id="@+id/txtSinger"
-            android:text="Ca sĩ"
-            android:layout_alignParentRight="true"
-            android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:layout_marginRight="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+
     </RelativeLayout>
 
 </RelativeLayout>

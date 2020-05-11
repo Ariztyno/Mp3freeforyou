@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:padding="10dp"
@@ -40,6 +42,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
+            android:layout_margin="10dp"
+            android:src="@drawable/iconexplore_white"
+            android:id="@+id/imgExplore"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:visibility="gone"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="2dp"
+            android:layout_toLeftOf="@+id/imgExplore"
+            android:id="@+id/imgCircleMusicPlayerDianhac"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <!--<fragment
+            android:name="com.example.mp3freeforyou.Fragment.Fragment_MusicPlayer_Dianhac"
+            android:id="@+id/fragmentmusicplayerdianhac"
+            android:layout_toLeftOf="@+id/imgExplore"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+        </fragment>-->
+        <!--<ImageView
             android:layout_marginRight="10dp"
             android:src="@drawable/iconlove"
             android:id="@+id/imgLikeBtnRowMusicPlayerDSBH"
@@ -47,13 +76,22 @@
             android:layout_alignParentRight="true"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
+
         <ImageView
             android:layout_marginRight="55dp"
-            android:src="@drawable/iconaddsongtoplaylist"
             android:id="@+id/imgAddsongtoplaylistBtnRowMusicPlayerDSBH"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:src="@drawable/iconaddsongtoplaylist" />
+        <ImageView
+            android:layout_marginRight="100dp"
+            android:src="@drawable/icondownload"
+            android:id="@+id/imgDownloadBtnRowMusicPlayerDSBH"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"/>-->
     </RelativeLayout>
 </RelativeLayout>

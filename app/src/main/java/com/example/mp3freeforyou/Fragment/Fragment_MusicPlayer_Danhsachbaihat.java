@@ -27,14 +27,18 @@ public class Fragment_MusicPlayer_Danhsachbaihat extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_musicplayer_danhsachbaihat,container,false);
         recyclerViewFragMusicPlayerDSBaihat=view.findViewById(R.id.recycleviewFragmentMusicPlayerDSBaihat);
+        Getdata();
+        return view;
+    }
+
+    public void Getdata(){
         if(MusicPlayerActivity.mangbaihat.size()>0){
             adapter=new MusicPlayerDSBaihatAdapter(getActivity(), MusicPlayerActivity.mangbaihat);
             recyclerViewFragMusicPlayerDSBaihat.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerViewFragMusicPlayerDSBaihat.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }else {
             Log.d("FrMP_DSBaihat","mangbaihat bị rỗng");
         }
-
-        return view;
     }
 }

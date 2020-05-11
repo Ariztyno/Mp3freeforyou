@@ -46,10 +46,71 @@ public class Fragment_Goiy_Casi extends Fragment {
         txtXemThem=view.findViewById(R.id.txtViewmoreCasi);
         reCasi=view.findViewById(R.id.recycleviewCasi);
         txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-        GetData();
+        if(PreferenceUtils.getUsername(getContext())==null){
+            getDataIfNotLogged();
+        }else{
+            getDataIfLogged();
+        }
         Xemthem();
         Anhenre();
         return view;
+    }
+
+    private void getDataIfNotLogged() {
+        Dataservice dataservice= APIService.getService();
+        if(PreferenceUtils.getListIdCasifromQuizChoice(getContext()).matches(".*\\d.*") || PreferenceUtils.getBanListIdCaSi(getContext()).matches(".*\\d.*") || PreferenceUtils.getListenHistoryForNoAcc(getContext()).matches(".*\\d.*")){
+
+            //check if banlist hoặc quiz choice is null replace with ""
+            if(PreferenceUtils.getListIdCasifromQuizChoice(getContext()) == null){
+                PreferenceUtils.saveListIdCasifromQuizChoice("",getContext());
+            }
+            if(PreferenceUtils.getBanListIdCaSi(getContext()) == null){
+                PreferenceUtils.saveBanListIdCaSi("",getContext());
+            }
+            if(PreferenceUtils.getListenHistoryForNoAcc(getContext())==null){
+                PreferenceUtils.saveListenHistoryForNoAcc("",getContext());
+            }
+
+            Call<List<Casi>> call=dataservice.PostGoiyCasiForNoAcc(PreferenceUtils.getListenHistoryForNoAcc(getContext()),PreferenceUtils.getListIdCasifromQuizChoice(getContext()),PreferenceUtils.getBanListIdCaSi(getContext()));
+            call.enqueue(new Callback<List<Casi>>() {
+                @Override
+                public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
+                    mangcasi= (ArrayList<Casi>) response.body();
+                    LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
+                    adapter =new CasiAdapter(getActivity(),mangcasi);
+                    reCasi.setLayoutManager(linearLayoutManager1);
+                    reCasi.setAdapter(adapter);
+                    Log.d("recasi","yes");
+                }
+
+                @Override
+                public void onFailure(Call<List<Casi>> call, Throwable t) {
+                    Log.d("recasi","no"+t);
+                }
+            });
+        }else{
+
+
+            Call<List<Casi>> call=dataservice.PostGoiyCasiForNoAccNoQuizNoBan();
+            call.enqueue(new Callback<List<Casi>>() {
+                @Override
+                public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
+                    mangcasi= (ArrayList<Casi>) response.body();
+                    LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity());
+                    adapter =new CasiAdapter(getActivity(),mangcasi);
+                    reCasi.setLayoutManager(linearLayoutManager1);
+                    reCasi.setAdapter(adapter);
+                    Log.d("recasi",""+adapter.getItemCount());
+                    Log.d("recasi","quiz ban his all null");
+                }
+
+                @Override
+                public void onFailure(Call<List<Casi>> call, Throwable t) {
+                    Log.d("recasi","no"+t);
+                }
+            });
+        }
+
     }
 
     private void Xemthem() {
@@ -63,7 +124,7 @@ public class Fragment_Goiy_Casi extends Fragment {
         });
     }
 
-    private void GetData() {
+    private void getDataIfLogged() {
         Dataservice dataservice= APIService.getService();
         Call<List<Casi>> call=dataservice.PostGoiyCasi(PreferenceUtils.getUsername(getContext()));
         call.enqueue(new Callback<List<Casi>>() {

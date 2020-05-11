@@ -12,7 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
+
+
     </androidx.viewpager.widget.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_rowbannerbackground"
+        android:orientation="vertical">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingactionbuttonMusicplayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#ff39aa"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/iconplaywhite"
+            app:fabSize="normal"
+            app:layout_anchor="@id/appbarlayoutDSBaihat"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_behavior="@string/bottom_sheet_behavior" />
+    </LinearLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/myTabLayout"
         app:tabIndicatorColor="#FFFFFF"

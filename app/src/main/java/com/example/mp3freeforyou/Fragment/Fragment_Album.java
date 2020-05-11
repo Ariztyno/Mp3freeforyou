@@ -20,6 +20,7 @@ import com.example.mp3freeforyou.Model.Album;
 import com.example.mp3freeforyou.R;
 import com.example.mp3freeforyou.Service.APIService;
 import com.example.mp3freeforyou.Service.Dataservice;
+import com.example.mp3freeforyou.Ultils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,11 @@ public class Fragment_Album extends Fragment {
         getData();
         XemThem();
         return view;
+    }
+
+    private void getDataIfNotLogged() {
+        //gợi ý dành cho khách không có đăng nhập
+
     }
 
     private void XemThem() {

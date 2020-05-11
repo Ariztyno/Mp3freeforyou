@@ -4,24 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="Bạn chưa đăng nhập tài khoản"
-        android:id="@+id/txtFrgBeforeLoginContent"
+    <RelativeLayout
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/btnToLoginpage"
-        android:layout_margin="10dp"
-        android:background="@drawable/roundshape_btn"
-        android:layout_below="@+id/txtFrgBeforeLoginContent"
-        android:layout_centerHorizontal="true"
-        android:text="Đăng nhập ngay?"
-        android:textColor="#ffffff"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Bạn chưa đăng nhập tài khoản"
+            android:id="@+id/txtFrgBeforeLoginContent"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnToLoginpage"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundshape_btn"
+            android:layout_below="@+id/txtFrgBeforeLoginContent"
+            android:layout_centerHorizontal="true"
+            android:text="Đăng nhập/đăng ký ngay?"
+            android:textColor="#ffffff"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnQuizUpdateBeforeLogin"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundshape_btn"
+            android:layout_below="@+id/btnToLoginpage"
+            android:layout_centerHorizontal="true"
+            android:text="Cập nhật sở thích"
+            android:textColor="#ffffff"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnQldschan"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundshape_btn"
+            android:layout_below="@+id/btnQuizUpdateBeforeLogin"
+            android:layout_centerHorizontal="true"
+            android:text="Danh sách chặn"
+            android:textColor="#ffffff"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnLichsuphat"
+            android:layout_margin="10dp"
+            android:background="@drawable/roundshape_btn"
+            android:layout_below="@+id/btnQldschan"
+            android:layout_centerHorizontal="true"
+            android:text="Lịch sử nghe"
+            android:textColor="#ffffff"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
 </RelativeLayout>

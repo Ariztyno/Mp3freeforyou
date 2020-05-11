@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="15dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <!--Normal state when not checked-->
+        <FrameLayout
+            android:visibility="visible"
+            android:id="@+id/framelayoutRow_Quiz_DSTheloai_Normal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:elevation="6dp"
+                android:id="@+id/img_Quiz_DSTheloai_Normal"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="180dp"
+                android:layout_height="180dp"/>
+        </FrameLayout>
+
+        <!--Checked state-->
+        <FrameLayout
+
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+
+            android:id="@+id/framelayoutRow_Quiz_DSTheloai_Checked"
+            android:layout_gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="80dp">
+            <ImageView
+                android:visibility="gone"
+                android:elevation="6dp"
+                android:id="@+id/img_Quiz_DSTheloai_Checked"
+                android:scaleType="centerCrop"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!--android:src="@drawable/ic_itemchecked"-->
+    <!--Name Theloai-->
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@color/colorWhite"
+        android:text="Minh 121215555555555555555"
+        android:gravity="center"
+        android:maxWidth="180dp"
+        android:lines="2"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:id="@+id/txtRow_Quiz_DSTheloai_TenTheLoai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

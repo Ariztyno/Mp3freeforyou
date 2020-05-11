@@ -38,4 +38,8 @@ public class Fragment_MusicPlayer_Dianhac extends Fragment {
     public void Playnhac(String hinhanh) {
         Picasso.with(getActivity()).load(hinhanh).into(imgCircleDianhac);
     }
+
+    public void isPlaying() {
+        Picasso.with(getActivity()).load(R.drawable.iconfloatingactionbutton_white_25).into(imgCircleDianhac);
+    }
 }

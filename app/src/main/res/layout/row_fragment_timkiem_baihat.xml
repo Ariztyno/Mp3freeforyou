@@ -38,20 +38,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ImageView
-        android:layout_marginRight="10dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/iconexplore_white"
+        android:id="@+id/imgExplore"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:id="@+id/imgRowFragmentTimKiemLikebtn"
-        android:src="@drawable/iconlove"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-    <ImageView
-        android:layout_marginRight="60dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:id="@+id/imgRowFragmentTimKiemAddsongtoplaylistbtn"
-        android:src="@drawable/iconaddsongtoplaylist"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
 
 </RelativeLayout>

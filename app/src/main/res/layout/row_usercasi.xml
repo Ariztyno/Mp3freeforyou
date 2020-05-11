@@ -26,6 +26,15 @@
         android:layout_marginRight="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:src="@drawable/iconexplore_white"
+        android:id="@+id/imgExplore"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <ImageView
+        android:visibility="gone"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
         android:src="@drawable/icondelete"
         android:id="@+id/imgRowUserCasiDelbtn"
         android:layout_width="30dp"

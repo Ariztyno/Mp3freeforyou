@@ -40,30 +40,82 @@ public class Goiy_casi_XemThemDSCaSiActivity extends AppCompatActivity {
     }
 
     private void GetData() {
-        Dataservice dataservice= APIService.getService();
-        Call<List<Casi>> call=dataservice.PostGoiyCasiXemthem(PreferenceUtils.getUsername(getApplicationContext()));
-        call.enqueue(new Callback<List<Casi>>() {
-            @Override
-            public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
-                mangcasi= (ArrayList<Casi>) response.body();
-                LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(Goiy_casi_XemThemDSCaSiActivity.this);
-                adapter =new CasiAdapter(Goiy_casi_XemThemDSCaSiActivity.this,mangcasi);
-                reCasi.setLayoutManager(linearLayoutManager1);
-                reCasi.setAdapter(adapter);
-                Log.d("XemthemCasiGoiY","Yes");
+        if(PreferenceUtils.getUsername(getApplicationContext())!=null){
+            Dataservice dataservice= APIService.getService();
+            Call<List<Casi>> call=dataservice.PostGoiyCasiXemthem(PreferenceUtils.getUsername(getApplicationContext()));
+            call.enqueue(new Callback<List<Casi>>() {
+                @Override
+                public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
+                    mangcasi= (ArrayList<Casi>) response.body();
+                    LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(Goiy_casi_XemThemDSCaSiActivity.this);
+                    adapter =new CasiAdapter(Goiy_casi_XemThemDSCaSiActivity.this,mangcasi);
+                    reCasi.setLayoutManager(linearLayoutManager1);
+                    reCasi.setAdapter(adapter);
+                    Log.d("XemthemCasiGoiY","Yes");
+                }
+                @Override
+                public void onFailure(Call<List<Casi>> call, Throwable t) {
+                    Log.d("XemthemCasiGoiY","Yes "+t);
+                }
+            });
+        }else{
+            Dataservice dataservice= APIService.getService();
+            if(PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()).matches(".*\\d.*") || PreferenceUtils.getBanListIdCaSi(getApplicationContext()).matches(".*\\d.*") || PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()).matches(".*\\d.*")){
+                //check if banlist hoặc quiz choice is null replace with ""
+                if(PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()) == null){
+                    PreferenceUtils.saveListIdCasifromQuizChoice("",getApplicationContext());
+                }
+                if(PreferenceUtils.getBanListIdCaSi(getApplicationContext()) == null){
+                    PreferenceUtils.saveBanListIdCaSi("",getApplicationContext());
+                }
+                if(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext())==null){
+                    PreferenceUtils.saveListenHistoryForNoAcc("",getApplicationContext());
+                }
+
+                Call<List<Casi>> call=dataservice.PostGoiyCasiForNoAccXemthem(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()),PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()),PreferenceUtils.getBanListIdCaSi(getApplicationContext()));
+                call.enqueue(new Callback<List<Casi>>() {
+                    @Override
+                    public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
+                        mangcasi= (ArrayList<Casi>) response.body();
+                        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(Goiy_casi_XemThemDSCaSiActivity.this);
+                        adapter =new CasiAdapter(Goiy_casi_XemThemDSCaSiActivity.this,mangcasi);
+                        reCasi.setLayoutManager(linearLayoutManager1);
+                        reCasi.setAdapter(adapter);
+                        Log.d("XemthemCasiGoiY","Yes");
+                    }
+                    @Override
+                    public void onFailure(Call<List<Casi>> call, Throwable t) {
+                        Log.d("XemthemCasiGoiY","Yes "+t);
+                    }
+                });
+            }else{
+                Call<List<Casi>> call=dataservice.PostGoiyCasiForNoAccNoQuizNoBanXemthem();
+                call.enqueue(new Callback<List<Casi>>() {
+                    @Override
+                    public void onResponse(Call<List<Casi>> call, Response<List<Casi>> response) {
+                        mangcasi= (ArrayList<Casi>) response.body();
+                        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(Goiy_casi_XemThemDSCaSiActivity.this);
+                        adapter =new CasiAdapter(Goiy_casi_XemThemDSCaSiActivity.this,mangcasi);
+                        reCasi.setLayoutManager(linearLayoutManager1);
+                        reCasi.setAdapter(adapter);
+                        Log.d("XemthemCasiGoiY","Yes");
+                    }
+                    @Override
+                    public void onFailure(Call<List<Casi>> call, Throwable t) {
+                        Log.d("XemthemCasiGoiY","Yes "+t);
+                    }
+                });
             }
-            @Override
-            public void onFailure(Call<List<Casi>> call, Throwable t) {
-                Log.d("XemthemCasiGoiY","Yes "+t);
-            }
-        });
+
+        }
+
     }
 
     private void init() {
         //KHỞI TẠO CHO TOOLBAR
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Ca sĩ");
+        getSupportActionBar().setTitle("Ca sĩ gợi ý");
 
         toolbar.setTitleTextColor(Color.parseColor("#ff39aa"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

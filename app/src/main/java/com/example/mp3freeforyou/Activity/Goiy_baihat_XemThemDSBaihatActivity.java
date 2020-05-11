@@ -45,38 +45,112 @@ public class Goiy_baihat_XemThemDSBaihatActivity extends AppCompatActivity {
 
     private void Getdata() {
         Dataservice dataservice= APIService.getService();
-        Call<List<Baihat>> callback=dataservice.PostGoiyBaihatXemthem(PreferenceUtils.getUsername(getApplicationContext()));
-        callback.enqueue(new Callback<List<Baihat>>() {
-            @Override
-            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
-                mangbaihat= (ArrayList<Baihat>) response.body();
-                top5=new Top5baihatduocyeuthichnhatAdapter(Goiy_baihat_XemThemDSBaihatActivity.this,android.R.layout.simple_list_item_1,mangbaihat);
-                listView.setAdapter(top5);
-                setListViewHeightBasedOnChildren(listView);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if(PreferenceUtils.getUsername(getApplicationContext())!=null){
+            Call<List<Baihat>> callback=dataservice.PostGoiyBaihatXemthem(PreferenceUtils.getUsername(getApplicationContext()));
+            callback.enqueue(new Callback<List<Baihat>>() {
+                @Override
+                public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                    mangbaihat= (ArrayList<Baihat>) response.body();
+                    top5=new Top5baihatduocyeuthichnhatAdapter(Goiy_baihat_XemThemDSBaihatActivity.this,android.R.layout.simple_list_item_1,mangbaihat);
+                    listView.setAdapter(top5);
+                    setListViewHeightBasedOnChildren(listView);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent=new Intent(getApplicationContext(), MusicPlayerActivity.class);
+                            intent.putExtra("Cakhuc", mangbaihat.get(position));
+                            //Log.d("Top5baihat_Cakhuc",String.valueOf(mangbaihat.get(position).getTenBaiHat()));
+                            startActivity(intent);
+                        }
+                    });
+                    Log.d("Top5baihat",String.valueOf(mangbaihat.size()));
+                }
+
+                @Override
+                public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+                }
+            });
+        }else{
+            if(PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()).matches(".*\\d.*")||PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()).matches(".*\\d.*")||PreferenceUtils.getBanListIdCaSi(getApplicationContext()).matches(".*\\d.*")||PreferenceUtils.getBanListIdBaihat(getApplicationContext()).matches(".*\\d.*") || PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()).matches(".*\\d.*")){
+                //check if banlist hoặc quiz choice is null replace with ""
+                if(PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()) == null){
+                    PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice("",getApplicationContext());
+                }
+                if(PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()) == null){
+                    PreferenceUtils.saveListIdCasifromQuizChoice("",getApplicationContext());
+                }
+                if(PreferenceUtils.getBanListIdCaSi(getApplicationContext()) == null){
+                    PreferenceUtils.saveBanListIdCaSi("",getApplicationContext());
+                }
+                if(PreferenceUtils.getBanListIdBaihat(getApplicationContext()) == null){
+                    PreferenceUtils.saveBanListIdBaihat("",getApplicationContext());
+                }
+                if(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext())==null){
+                    PreferenceUtils.saveListenHistoryForNoAcc("",getApplicationContext());
+                }
+
+                Call<List<Baihat>> callback=dataservice.PostGoiyBaihatForNoAccXemthem(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()),PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()),PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()),PreferenceUtils.getBanListIdCaSi(getApplicationContext()),PreferenceUtils.getBanListIdBaihat(getApplicationContext()));
+                callback.enqueue(new Callback<List<Baihat>>() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(getApplicationContext(), MusicPlayerActivity.class);
-                        intent.putExtra("Cakhuc", mangbaihat.get(position));
-                        //Log.d("Top5baihat_Cakhuc",String.valueOf(mangbaihat.get(position).getTenBaiHat()));
-                        startActivity(intent);
+                    public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                        mangbaihat= (ArrayList<Baihat>) response.body();
+                        top5=new Top5baihatduocyeuthichnhatAdapter(Goiy_baihat_XemThemDSBaihatActivity.this,android.R.layout.simple_list_item_1,mangbaihat);
+                        listView.setAdapter(top5);
+                        setListViewHeightBasedOnChildren(listView);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent=new Intent(getApplicationContext(), MusicPlayerActivity.class);
+                                intent.putExtra("Cakhuc", mangbaihat.get(position));
+                                //Log.d("Top5baihat_Cakhuc",String.valueOf(mangbaihat.get(position).getTenBaiHat()));
+                                startActivity(intent);
+                            }
+                        });
+                        Log.d("Top5baihat",String.valueOf(mangbaihat.size()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
                     }
                 });
-                Log.d("Top5baihat",String.valueOf(mangbaihat.size()));
-            }
+            }else{
+                Call<List<Baihat>> callback=dataservice.PostGoiyBaihatForNoAccNoQuizXemthem();
+                callback.enqueue(new Callback<List<Baihat>>() {
+                    @Override
+                    public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                        mangbaihat= (ArrayList<Baihat>) response.body();
+                        top5=new Top5baihatduocyeuthichnhatAdapter(Goiy_baihat_XemThemDSBaihatActivity.this,android.R.layout.simple_list_item_1,mangbaihat);
+                        listView.setAdapter(top5);
+                        setListViewHeightBasedOnChildren(listView);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent=new Intent(getApplicationContext(), MusicPlayerActivity.class);
+                                intent.putExtra("Cakhuc", mangbaihat.get(position));
+                                //Log.d("Top5baihat_Cakhuc",String.valueOf(mangbaihat.get(position).getTenBaiHat()));
+                                startActivity(intent);
+                            }
+                        });
+                        Log.d("Top5baihat",String.valueOf(mangbaihat.size()));
+                    }
 
-            @Override
-            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<List<Baihat>> call, Throwable t) {
 
+                    }
+                });
             }
-        });
+        }
+
     }
 
     private void init() {
         //KHỞI TẠO CHO TOOLBAR
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Bài hát");
+        getSupportActionBar().setTitle("Bài hát gợi ý");
 
         toolbar.setTitleTextColor(Color.parseColor("#ff39aa"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

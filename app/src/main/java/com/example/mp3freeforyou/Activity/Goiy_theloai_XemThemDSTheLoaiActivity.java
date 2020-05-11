@@ -37,10 +37,61 @@ public class Goiy_theloai_XemThemDSTheLoaiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_goiy_theloai__xem_them_dsthe_loai);
         anhxa();
         init();
-        GetData();
+        if(PreferenceUtils.getUsername(getApplicationContext())==null){
+            getDataIfNotLogged();
+        }else{
+            getDataIfLogged();
+        }
     }
 
-    private void GetData() {
+    private void getDataIfNotLogged() {
+        Dataservice dataservice= APIService.getService();
+        if(PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()).matches(".*\\d.*") || PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()).matches(".*\\d.*")){
+            if(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext())==null){
+                PreferenceUtils.saveListenHistoryForNoAcc("",getApplicationContext());
+            }
+            if(PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext())==null){
+                PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice("",getApplicationContext());
+            }
+
+            Call<List<Theloaibaihat>> callback=dataservice.PostGoiyTheloaiForNoAccXemThem(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()),PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()));
+            callback.enqueue(new Callback<List<Theloaibaihat>>() {
+                @Override
+                public void onResponse(Call<List<Theloaibaihat>> call, Response<List<Theloaibaihat>> response) {
+                    mangtheloai= (ArrayList<Theloaibaihat>) response.body();
+                    theloaiAdapter=new XemThemDSTheLoaiAdapter(Goiy_theloai_XemThemDSTheLoaiActivity.this,mangtheloai);
+                    retheloai.setLayoutManager(new GridLayoutManager(Goiy_theloai_XemThemDSTheLoaiActivity.this,2));
+                    retheloai.setAdapter(theloaiAdapter);
+                    Log.d("theloai","Yes");
+                }
+
+                @Override
+                public void onFailure(Call<List<Theloaibaihat>> call, Throwable t) {
+
+                }
+            });
+        }else{
+            Call<List<Theloaibaihat>> callback=dataservice.PostGoiyTheloaiForNoAccNoQuizXemThem();
+            callback.enqueue(new Callback<List<Theloaibaihat>>() {
+                @Override
+                public void onResponse(Call<List<Theloaibaihat>> call, Response<List<Theloaibaihat>> response) {
+                    mangtheloai= (ArrayList<Theloaibaihat>) response.body();
+                    theloaiAdapter=new XemThemDSTheLoaiAdapter(Goiy_theloai_XemThemDSTheLoaiActivity.this,mangtheloai);
+                    retheloai.setLayoutManager(new GridLayoutManager(Goiy_theloai_XemThemDSTheLoaiActivity.this,2));
+                    retheloai.setAdapter(theloaiAdapter);
+                    Log.d("theloai","Yes");
+                }
+
+                @Override
+                public void onFailure(Call<List<Theloaibaihat>> call, Throwable t) {
+
+                }
+            });
+        }
+
+    }
+
+    private void getDataIfLogged() {
         Dataservice dataservice= APIService.getService();
         Call<List<Theloaibaihat>> callback=dataservice.PostGoiyTheloaiXemthem(PreferenceUtils.getUsername(getApplicationContext()));
         callback.enqueue(new Callback<List<Theloaibaihat>>() {
@@ -64,7 +115,7 @@ public class Goiy_theloai_XemThemDSTheLoaiActivity extends AppCompatActivity {
         //KHỞI TẠO CHO TOOLBAR
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Thể loại");
+        getSupportActionBar().setTitle("Thể loại gợi ý");
 
         toolbar.setTitleTextColor(Color.parseColor("#ff39aa"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

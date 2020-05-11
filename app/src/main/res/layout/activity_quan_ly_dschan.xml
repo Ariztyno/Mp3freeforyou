@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_taikhoan"
+    tools:context=".Activity.QuanLyDSChanActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/firstpart"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnDSBanListSong"
+                android:layout_margin="10dp"
+                android:background="@drawable/roundshape_btn"
+                android:layout_centerHorizontal="true"
+                android:text="DANH SÁCH BÀI HÁT BỊ CHẶN"
+                android:textColor="#ffffff"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btnDSBanListSinger"
+                android:layout_below="@+id/btnDSBanListSong"
+                android:layout_margin="10dp"
+                android:background="@drawable/roundshape_btn"
+                android:layout_centerHorizontal="true"
+                android:text="DANH SÁCH CA SĨ BỊ CHẶN"
+                android:textColor="#ffffff"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/secondpart"
+            android:layout_below="@+id/firstpart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:background="@color/colorPink"
+                android:id="@+id/txtTitle"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+            <androidx.core.widget.NestedScrollView
+                android:visibility="gone"
+                android:layout_below="@+id/txtTitle"
+                android:id="@+id/viewListBaohat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reDSChanBaihat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.core.widget.NestedScrollView>
+            <androidx.core.widget.NestedScrollView
+                android:visibility="gone"
+                android:layout_below="@+id/txtTitle"
+                android:id="@+id/viewListCasi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reDSChanCasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.core.widget.NestedScrollView>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txtReBaihatChanEmty"
+                android:textAlignment="center"
+                android:text="Không có bài hát nào bị chặn cả"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txtReCasiChanEmty"
+                android:textAlignment="center"
+                android:text="Không có ca sĩ nào bị chặn cả"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

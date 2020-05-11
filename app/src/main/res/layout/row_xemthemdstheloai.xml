@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="5dp"
+    android:layout_margin="15dp"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -21,9 +21,9 @@
     <TextView
         android:textSize="15sp"
         android:textColor="@color/colorPink"
-        android:text="Minh 12121"
+        android:text="Minh 121215555555555555555"
         android:gravity="left"
-        android:maxWidth="200dp"
+        android:maxWidth="180dp"
         android:lines="2"
         android:maxLines="2"
         android:ellipsize="end"

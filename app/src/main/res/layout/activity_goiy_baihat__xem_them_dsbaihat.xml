@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_trangchu"
+    android:background="@drawable/bg_4"
     tools:context=".Activity.Goiy_baihat_XemThemDSBaihatActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:background="@android:color/transparent"

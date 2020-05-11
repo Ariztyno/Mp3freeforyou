@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.example.mp3freeforyou.R;
 import com.example.mp3freeforyou.Service.APIService;
 import com.example.mp3freeforyou.Service.Dataservice;
 import com.example.mp3freeforyou.Ultils.PreferenceUtils;
+import com.example.mp3freeforyou.Ultils.StringUtils;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -55,6 +57,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_ARRAYCASI;
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_ARRAYTHELOAI;
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_BANLIST_BAIHAT;
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_BANLIST_CASI;
+
 public class LoginActivity extends AppCompatActivity {
 
     TextView txtDangky,txtThongbaoLogin,txtRecover;
@@ -64,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     Nguoidung nguoidung;
     LinearLayout linearLayoutLogin;
     LoginButton btnFacebooklogin;
+    CheckBox cbFacebooklogin;
 
 
     //facebook
@@ -90,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         txtRecover=findViewById(R.id.txtRecover);
         linearLayoutLogin=findViewById(R.id.linearlayoutTaiKhoan);
         btnFacebooklogin=findViewById(R.id.btnFacebooklogin);
+        cbFacebooklogin=findViewById(R.id.cbFacebooklogin);
     }
 
     private void Dangky() {
@@ -112,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                     txtThongbaoLogin.setVisibility(View.VISIBLE);
                 }else {
                     final Dataservice dataservice= APIService.getService();
-                    Call<String> callback=dataservice.PostDangNhapNguoiDung(edtTenDangNhap.getText().toString(),edtMatKhau.getText().toString());
+                    Call<String> callback=dataservice.PostDangNhapNguoiDung(edtTenDangNhap.getText().toString(), StringUtils.unAccent(edtMatKhau.getText().toString()));
                     callback.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
@@ -139,11 +148,29 @@ public class LoginActivity extends AppCompatActivity {
                                         PreferenceUtils.saveName(name,getApplicationContext());
                                         PreferenceUtils.saveAvatar(avatar,getApplicationContext());
 
+                                        if(cbFacebooklogin.isChecked()){
+                                            SaveListenDataToDB_for_Loging(PreferenceUtils.getUsername(getApplicationContext()));
+                                        }
+
+                                        //clear quiz
+                                        KEY_ARRAYTHELOAI.clear();//clear mang
+                                        KEY_ARRAYCASI.clear();
+                                        PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice(KEY_ARRAYTHELOAI,getApplicationContext());
+                                        PreferenceUtils.saveListIdCasifromQuizChoice(KEY_ARRAYCASI,getApplicationContext());
+
+                                        //clear ban list
+                                        KEY_BANLIST_BAIHAT.clear();
+                                        KEY_BANLIST_CASI.clear();
+                                        PreferenceUtils.saveBanListIdBaihat(KEY_BANLIST_BAIHAT,getApplicationContext());
+                                        PreferenceUtils.saveBanListIdCaSi(KEY_BANLIST_CASI,getApplicationContext());
+                                        PreferenceUtils.saveListenHistoryForNoAcc("",getApplicationContext());
+
+
                                         Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
 
                                         Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                                         startActivity(intent);
-
+                                        finish();
                                     }
 
                                     @Override
@@ -292,14 +319,29 @@ public class LoginActivity extends AppCompatActivity {
                 PreferenceUtils.saveEmail(null, getApplicationContext());
                 PreferenceUtils.savePassword(null, getApplicationContext());
 
+                //clear quiz
+                KEY_ARRAYTHELOAI.clear();//clear mang
+                KEY_ARRAYCASI.clear();
+                PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice(KEY_ARRAYTHELOAI,getApplicationContext());
+                PreferenceUtils.saveListIdCasifromQuizChoice(KEY_ARRAYCASI,getApplicationContext());
+
+                //clear ban list
+                KEY_BANLIST_BAIHAT.clear();
+                KEY_BANLIST_CASI.clear();
+                PreferenceUtils.saveBanListIdBaihat(KEY_BANLIST_BAIHAT,getApplicationContext());
+                PreferenceUtils.saveBanListIdCaSi(KEY_BANLIST_CASI,getApplicationContext());
+                PreferenceUtils.saveListenHistoryForNoAcc("",getApplicationContext());
                 /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);*/
+                startActivity(intent);
+                finish();*/
             } else{
                 loadfacebookprofile(currentAccessToken);
             }
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
     };
 
@@ -320,38 +362,80 @@ public class LoginActivity extends AppCompatActivity {
                     PreferenceUtils.saveUsername(id,getApplicationContext());
                     PreferenceUtils.saveEmail(email,getApplicationContext());
 
+                    //clear quiz
+                    KEY_ARRAYTHELOAI.clear();//clear mang
+                    KEY_ARRAYCASI.clear();
+                    PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice(KEY_ARRAYTHELOAI,getApplicationContext());
+                    PreferenceUtils.saveListIdCasifromQuizChoice(KEY_ARRAYCASI,getApplicationContext());
+
+                    //clear ban list & history
+                    KEY_BANLIST_BAIHAT.clear();
+                    KEY_BANLIST_CASI.clear();
+                    PreferenceUtils.saveBanListIdBaihat(KEY_BANLIST_BAIHAT,getApplicationContext());
+                    PreferenceUtils.saveBanListIdCaSi(KEY_BANLIST_CASI,getApplicationContext());
+                    PreferenceUtils.saveListenHistoryForNoAcc("",getApplicationContext());
+
                     //kiem tra facebook id có tồn tại trong db chưa?
                     //nếu có rồi thì chuyển trang
                     //ko thì lưu rồi chuyển trang
                     Dataservice dataservice=APIService.getService();
-                    Call<String> callback=dataservice.PostTaoHoSoNguoiDungFacebook(id,email,last_name+" "+first_name);
-                    callback.enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            String ketqua=response.body();
-                            if(ketqua.equals("exist")){
-                                Log.d("LoginFB","update fb db");
-                                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);*/
-                            }else if(ketqua.equals("success")){
-                                Log.d("LoginFB","create fb on db success");
-                                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);*/
-                            }else if(ketqua.equals("fail1")){
-                                Log.d("LoginFB","loi tao hosonguoidung");
-                            }else if(ketqua.equals("fail2")){
-                                Log.d("LoginFB","loi tao nguoidungfb");
-                            }else{
-                                Log.d("LoginFB","sth wrong");
+                    if(cbFacebooklogin.isChecked()){
+                        Call<String> callback=dataservice.PostTaoHoSoNguoiDungFacebook(id,email,last_name+" "+first_name);
+                        callback.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                String ketqua=response.body();
+                                if(ketqua.equals("exist")){
+                                    //đã tồn tại nên sẽ update banlist và quizlist
+                                    SaveListenDataToDB_for_Loging(id);
+                                    Log.d("LoginFB","update fb db");
+                                }else if(ketqua.equals("success")){
+                                    //chưa có nên sẽ insert banlist và quizlist
+                                    SaveListenDataToDB_for_Register(id);
+                                    Log.d("LoginFB","create fb on db success");
+                                }else if(ketqua.equals("fail1")){
+                                    Log.d("LoginFB","loi tao hosonguoidung");
+                                }else if(ketqua.equals("fail2")){
+                                    Log.d("LoginFB","loi tao nguoidungfb");
+                                }else{
+                                    Log.d("LoginFB","sth wrong");
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Log.d("LoginFB","that bai");
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Log.d("LoginFB","that bai");
+                            }
+                        });
+                    }else {
+                        Call<String> callback=dataservice.PostTaoHoSoNguoiDungFacebook(id,email,last_name+" "+first_name);
+                        callback.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                String ketqua=response.body();
+                                if(ketqua.equals("exist")){
+                                    Log.d("LoginFB","update fb db");
+                                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);*/
+                                }else if(ketqua.equals("success")){
+                                    Log.d("LoginFB","create fb on db success");
+                                /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);*/
+                                }else if(ketqua.equals("fail1")){
+                                    Log.d("LoginFB","loi tao hosonguoidung");
+                                }else if(ketqua.equals("fail2")){
+                                    Log.d("LoginFB","loi tao nguoidungfb");
+                                }else{
+                                    Log.d("LoginFB","sth wrong");
+                                }
+                            }
 
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Log.d("LoginFB","that bai");
+                            }
+                        });
+                    }
                     /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);*/
                 } catch (JSONException e) {
@@ -366,7 +450,99 @@ public class LoginActivity extends AppCompatActivity {
         request.executeAsync();
     }
 
-        //tạo pass random
+    private void SaveListenDataToDB_for_Register(String username) {
+        //check các thông số sở thích và ban list nếu chúng null thì sẽ gán thành ""
+        if (PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()) == null) {
+            PreferenceUtils.saveListIdCasifromQuizChoice("", getApplicationContext());
+        }
+        if (PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()) == null) {
+            PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice("", getApplicationContext());
+        }
+        if (PreferenceUtils.getBanListIdBaihat(getApplicationContext()) == null) {
+            PreferenceUtils.saveBanListIdBaihat("", getApplicationContext());
+        }
+        if (PreferenceUtils.getBanListIdCaSi(getApplicationContext()) == null) {
+            PreferenceUtils.saveBanListIdCaSi("", getApplicationContext());
+        }
+
+        if(PreferenceUtils.getSearchHistory(getApplicationContext())==null){
+            PreferenceUtils.saveSearchHistory("",getApplicationContext());
+        }
+
+        Dataservice dataservice1=APIService.getService();
+        Call<String> call1=dataservice1.postbanlistandquizlist_dangky(PreferenceUtils.getSearchHistory(getApplicationContext()),PreferenceUtils.getBanListIdCaSi(getApplicationContext()),PreferenceUtils.getBanListIdBaihat(getApplicationContext()),PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()),PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()),username);
+        call1.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String kq=response.body();
+                if(kq.equals("success")){
+                    Log.d("Register","Thành công bind sở thích & quiz");
+                }else{
+                    Log.d("Register","Thất bại bind sở thích & quiz");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("Register","Thất bại: "+t);
+            }
+        });
+    }
+
+    private void SaveListenDataToDB_for_Loging(String username){
+        //check các thông số sở thích và ban list nếu chúng null thì sẽ gán thành ""
+        if (PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()) == null) {
+            PreferenceUtils.saveListIdCasifromQuizChoice("", getApplicationContext());
+        }
+        if (PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()) == null) {
+            PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice("", getApplicationContext());
+        }
+        if (PreferenceUtils.getBanListIdBaihat(getApplicationContext()) == null) {
+            PreferenceUtils.saveBanListIdBaihat("", getApplicationContext());
+        }
+        if (PreferenceUtils.getBanListIdCaSi(getApplicationContext()) == null) {
+            PreferenceUtils.saveBanListIdCaSi("", getApplicationContext());
+        }
+
+        Dataservice dataservice1 = APIService.getService();
+        Call<String> call1 = dataservice1.postbanlistandquizlist_dangnhap(PreferenceUtils.getBanListIdCaSi(getApplicationContext()), PreferenceUtils.getBanListIdBaihat(getApplicationContext()), PreferenceUtils.getListIdCasifromQuizChoice(getApplicationContext()), PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getApplicationContext()), username);
+        call1.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String kq = response.body();
+                if (kq.equals("success")) {
+                    Log.d("Login", "Thành công bind sở thích & quiz");
+                } else {
+                    Log.d("Login", "Thất bại bind sở thích & quiz");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("Login", "Thất bại: " + t);
+            }
+        });
+
+        if(!PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()).equals("") && PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext())!=null){
+            Call<String> call2=APIService.getService().postlisthistory_dangnhap(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()),username);
+            call2.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    String kq=response.body();
+                    if(!kq.equals("")){
+                        Log.d("Login", "Thành công bind lịch sử nghe");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.d("Login", ""+t);
+                }
+            });
+        }
+    }
+
+    //tạo pass random
     String getAlphaNumericString(int n)
     {
 

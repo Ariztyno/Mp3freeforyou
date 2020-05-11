@@ -90,7 +90,7 @@ public class Fragment_Playlist extends Fragment {
 
             @Override
             public void onFailure(Call<List<Playlist>> call, Throwable t) {
-                Log.d("error:","something wrong");
+                Log.d("error:",""+t);
             }
         });
     }

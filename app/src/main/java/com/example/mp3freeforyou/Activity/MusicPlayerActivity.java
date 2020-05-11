@@ -4,9 +4,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -17,41 +20,67 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.animation.ObjectAnimator;
 
 import com.example.mp3freeforyou.Adapter.MusicPlayerViewPagerAdapter;
 import com.example.mp3freeforyou.Fragment.Fragment_MusicPlayer_Danhsachbaihat;
 import com.example.mp3freeforyou.Fragment.Fragment_MusicPlayer_Dianhac;
+import com.example.mp3freeforyou.Fragment.Fragment_MusicPlayer_InfoBaiHat;
 import com.example.mp3freeforyou.Model.Baihat;
+import com.example.mp3freeforyou.Model.CustomMediaPlayer;
 import com.example.mp3freeforyou.R;
 import com.example.mp3freeforyou.Service.APIService;
 import com.example.mp3freeforyou.Service.Dataservice;
 import com.example.mp3freeforyou.Ultils.PreferenceUtils;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
+import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.mp3freeforyou.Ultils.Constants.KEY_ARRAY_MANGBAIHAT;
+
 public class MusicPlayerActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    TextView txtTimeSong,txtTotalTimeSong;
-    SeekBar seekBar;
-    ImageButton imgplay,imgprev,imgnext,imgshuffle,imgrepeat1only,imgrepeatall;
+    RelativeLayout relativelayout_notexpanded;
+    LinearLayout layout;
+    ViewGroup.LayoutParams params;
+
+    CircleIndicator MusicPlayerindicator;
+
+    public static Toolbar toolbar;
+    public static TextView txtTimeSong,txtTotalTimeSong;
+    public static SeekBar seekBar;
+    public static ImageButton imgplay;
+    public static ImageButton imgprev;
+    public static ImageButton imgnext;
+    ImageButton imgshuffle;
+    ImageButton imgrepeat1only;
+    ImageButton imgrepeatall;
     ViewPager viewPagermusicplayer;
-    MediaPlayer mediaPlayer;
-    int position=0; //bắt giá trị các nút next,prev,...
-    boolean repeatAll=false;
-    boolean repeat1Only=false;
-    boolean random=false;
-    boolean next =false;
+    public static CustomMediaPlayer mediaPlayer;
+    public static int position=0; //bắt giá trị các nút next,prev,...
+    public static boolean repeatAll=false;
+    public static boolean repeat1Only=false;
+    public static boolean random=false;
+    public static boolean next =false;
+
+    boolean expanded=true;
     //mạng nhận ds bài hát
     public static ArrayList<Baihat> mangbaihat=new ArrayList<>();
 
@@ -65,8 +94,9 @@ public class MusicPlayerActivity extends AppCompatActivity {
      */
     public static final int BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT = 1;
 
-    Fragment_MusicPlayer_Danhsachbaihat fmp_Danhsachbaihat;
-    Fragment_MusicPlayer_Dianhac fmp_Dianhac;
+    public static Fragment_MusicPlayer_Danhsachbaihat fmp_Danhsachbaihat;
+    public static Fragment_MusicPlayer_Dianhac fmp_Dianhac;
+    public static Fragment_MusicPlayer_InfoBaiHat fmp_infobaihat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +110,22 @@ public class MusicPlayerActivity extends AppCompatActivity {
         eventClick();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mediaPlayer.stop();
+        if(mangbaihat!=null){
+            SharedPreferences appSharedPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(this.getApplicationContext());
+            SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(mangbaihat);
+            prefsEditor.putString("MangBaiHat", json);
+            prefsEditor.apply();
+        }
+        mangbaihat.clear();
+    }
+
     private void eventClick() {
         //khi ca khúc phát sẽ thay đổi hình dạng của nút
         final Handler handler=new Handler();
@@ -89,7 +135,12 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 //kiểm tra dữ liệu có lấy đc hay ko?
                 if(adapterViewPager.getItem(1)!=null){
                     if(mangbaihat.size()>0){
+                        //fmp_infobaihat.LoadImgForInfoFrg(mangbaihat.get(0).getHinhBaiHat());
+                        //fmp_infobaihat.LoadTextViewForInfoFrg(mangbaihat.get(0).getTenBaiHat());
+                        //fmp_infobaihat.LoadSongData(mangbaihat.get(0).getIdCaSi(),mangbaihat.get(0).getIdTheLoai(),mangbaihat.get(0).getTenAlbum(),mangbaihat.get(0).getIdBaiHat());
+
                         fmp_Dianhac.Playnhac(mangbaihat.get(0).getHinhBaiHat());
+                        fmp_Danhsachbaihat.Getdata();
                         handler.removeCallbacks(this);//xóa mấy hình cũ khi load hình
 
                     }else {
@@ -254,11 +305,16 @@ public class MusicPlayerActivity extends AppCompatActivity {
                             position=0;
                         }
                         new PlayMp3().execute(mangbaihat.get(position).getLinkBaiHat());
+                        //fmp_infobaihat.LoadImgForInfoFrg(mangbaihat.get(position).getHinhBaiHat());
+                        //fmp_infobaihat.LoadTextViewForInfoFrg(mangbaihat.get(position).getTenBaiHat());
+                        //fmp_infobaihat.LoadSongData(mangbaihat.get(position).getIdCaSi(),mangbaihat.get(position).getIdTheLoai(),mangbaihat.get(position).getTenAlbum(),mangbaihat.get(position).getIdBaiHat());
                         fmp_Dianhac.Playnhac(mangbaihat.get(position).getHinhBaiHat());
+                        fmp_Danhsachbaihat.Getdata();
                         getSupportActionBar().setTitle(mangbaihat.get(position).getTenBaiHat());
                         UpdateTime();
 
                         Addtolichsu(mangbaihat.get(position).getIdBaiHat().toString());
+                        Addluotnghe(mangbaihat.get(position).getIdBaiHat().toString());
                     }
                 }
                 //sau 5 giây mới ấn tiếp đc tránh gây crash
@@ -305,11 +361,16 @@ public class MusicPlayerActivity extends AppCompatActivity {
                             }
                         }
                         new PlayMp3().execute(mangbaihat.get(position).getLinkBaiHat());
+                        //fmp_infobaihat.LoadImgForInfoFrg(mangbaihat.get(position).getHinhBaiHat());
+                        //fmp_infobaihat.LoadTextViewForInfoFrg(mangbaihat.get(position).getTenBaiHat());
+                        //fmp_infobaihat.LoadSongData(mangbaihat.get(position).getIdCaSi(),mangbaihat.get(position).getIdTheLoai(),mangbaihat.get(position).getTenAlbum(),mangbaihat.get(position).getIdBaiHat());
                         fmp_Dianhac.Playnhac(mangbaihat.get(position).getHinhBaiHat());
+                        fmp_Danhsachbaihat.Getdata();
                         getSupportActionBar().setTitle(mangbaihat.get(position).getTenBaiHat());
                         UpdateTime();
 
                         Addtolichsu(mangbaihat.get(position).getIdBaiHat().toString());
+                        Addluotnghe(mangbaihat.get(position).getIdBaiHat().toString());
                     }
                 }
                 //sau 5 giây mới ấn tiếp đc tránh gây crash
@@ -331,9 +392,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
     private void GetDataFromIntent() {
         //nhận intent
         Intent intent=getIntent();
-        mangbaihat.clear();
+
         if(intent!=null){
             if(intent.hasExtra("Cakhuc")){
+                //mediaPlayer.stop();
+                mangbaihat.clear();
                 Baihat baihat=intent.getParcelableExtra("Cakhuc");
                 Log.d("Cakhuc",baihat.getTenBaiHat());
 
@@ -341,6 +404,8 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 //Toast.makeText(this,baihat.getTenBaiHat(),Toast.LENGTH_SHORT).show();
             }
             if(intent.hasExtra("DSCakhuc")){
+                //mediaPlayer.stop();
+                mangbaihat.clear();
                 ArrayList<Baihat> array=intent.getParcelableArrayListExtra("DSCakhuc");
                 mangbaihat=array;
             }
@@ -360,6 +425,15 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 finish();
                 //thoát màn hình đang play thì ngừng phát và clear danh sách
                 mediaPlayer.stop();
+                if(mangbaihat!=null){
+                    SharedPreferences appSharedPrefs = PreferenceManager
+                            .getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(mangbaihat);
+                    prefsEditor.putString("MangBaiHat", json);
+                    prefsEditor.apply();
+                }
                 mangbaihat.clear();
             }
         });
@@ -368,17 +442,20 @@ public class MusicPlayerActivity extends AppCompatActivity {
         //khoi tao cho Fragment
         fmp_Dianhac=new Fragment_MusicPlayer_Dianhac();
         fmp_Danhsachbaihat=new Fragment_MusicPlayer_Danhsachbaihat();
+        //fmp_infobaihat=new Fragment_MusicPlayer_InfoBaiHat();
         //khoi tao cho Fragment end
         //viewpager adapter
         adapterViewPager=new MusicPlayerViewPagerAdapter(getSupportFragmentManager(),BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapterViewPager.AddFragment(fmp_Danhsachbaihat);
         adapterViewPager.AddFragment(fmp_Dianhac);
+        //adapterViewPager.AddFragment(fmp_infobaihat);
 
         viewPagermusicplayer.setAdapter(adapterViewPager);//set adapter
-
+        MusicPlayerindicator.setViewPager(viewPagermusicplayer);
         //viewpager adapter end
 
         fmp_Dianhac= (Fragment_MusicPlayer_Dianhac) adapterViewPager.getItem(1);//gán hình lên đĩa nhạc
+        //fmp_infobaihat= (Fragment_MusicPlayer_InfoBaiHat) adapterViewPager.getItem(2);
         //PLAY BÀI ĐẦU TIÊN TRONG DS khi mở vào
         if(mangbaihat.size()>0){
             getSupportActionBar().setTitle(mangbaihat.get(0).getTenBaiHat());
@@ -386,6 +463,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
             imgplay.setImageResource(R.drawable.iconpause);
 
             Addtolichsu(mangbaihat.get(position).getIdBaiHat().toString());
+            Addluotnghe(mangbaihat.get(position).getIdBaiHat().toString());
         }
         //PLAY BÀI ĐẦU TIÊN TRONG DS khi mở vào end
     }
@@ -402,6 +480,9 @@ public class MusicPlayerActivity extends AppCompatActivity {
         imgrepeat1only=findViewById(R.id.imgBtnMusicPlayerRepeated1Only);
         imgrepeatall=findViewById(R.id.imgBtnMusicPlayerRepeatAll);
         viewPagermusicplayer=findViewById(R.id.ViewPagerMusicPlayer);
+        MusicPlayerindicator=findViewById(R.id.MusicPlayerindicator);
+
+        layout=findViewById(R.id.root);
     }
 
     //thực hiện phát nhạc lấy link nhạc
@@ -418,7 +499,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
         protected void onPostExecute(String baihat) {
             super.onPostExecute(baihat);//nhận dữ liệu
             try {
-                mediaPlayer = new MediaPlayer();
+                mediaPlayer = new CustomMediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
                 //nếu trườn hợp load dũ liệu bị lỗi thì sẽ được load lại
@@ -500,10 +581,15 @@ public class MusicPlayerActivity extends AppCompatActivity {
                             position-=1;
 
                             new PlayMp3().execute(mangbaihat.get(position).getLinkBaiHat());
+                            //fmp_infobaihat.LoadImgForInfoFrg(mangbaihat.get(position).getHinhBaiHat());
+                            //fmp_infobaihat.LoadTextViewForInfoFrg(mangbaihat.get(position).getTenBaiHat());
+                            //fmp_infobaihat.LoadSongData(mangbaihat.get(position).getIdCaSi(),mangbaihat.get(position).getIdTheLoai(),mangbaihat.get(position).getTenAlbum(),mangbaihat.get(position).getIdBaiHat());
                             fmp_Dianhac.Playnhac(mangbaihat.get(position).getHinhBaiHat());
+                            fmp_Danhsachbaihat.Getdata();
                             getSupportActionBar().setTitle(mangbaihat.get(position).getTenBaiHat());
 
                             Addtolichsu(mangbaihat.get(position).getIdBaiHat().toString());
+                            Addluotnghe(mangbaihat.get(position).getIdBaiHat().toString());
                         }
                         if(random==true){
                             Random rd=new Random();
@@ -515,9 +601,14 @@ public class MusicPlayerActivity extends AppCompatActivity {
                             }
 
                             new PlayMp3().execute(mangbaihat.get(position).getLinkBaiHat());
+                            //fmp_infobaihat.LoadImgForInfoFrg(mangbaihat.get(position).getHinhBaiHat());
+                            //fmp_infobaihat.LoadTextViewForInfoFrg(mangbaihat.get(position).getTenBaiHat());
+                            //fmp_infobaihat.LoadSongData(mangbaihat.get(position).getIdCaSi(),mangbaihat.get(position).getIdTheLoai(),mangbaihat.get(position).getTenAlbum(),mangbaihat.get(position).getIdBaiHat());
                             fmp_Dianhac.Playnhac(mangbaihat.get(position).getHinhBaiHat());
+                            fmp_Danhsachbaihat.Getdata();
                             getSupportActionBar().setTitle(mangbaihat.get(position).getTenBaiHat());
                             Addtolichsu(mangbaihat.get(position).getIdBaiHat().toString());
+                            Addluotnghe(mangbaihat.get(position).getIdBaiHat().toString());
                         }
 
                         if(position>(mangbaihat.size()-1)){
@@ -541,10 +632,15 @@ public class MusicPlayerActivity extends AppCompatActivity {
                             }
                         }
                         new PlayMp3().execute(mangbaihat.get(position).getLinkBaiHat());
+                        //fmp_infobaihat.LoadImgForInfoFrg(mangbaihat.get(position).getHinhBaiHat());
+                        //fmp_infobaihat.LoadTextViewForInfoFrg(mangbaihat.get(position).getTenBaiHat());
+                        //fmp_infobaihat.LoadSongData(mangbaihat.get(position).getIdCaSi(),mangbaihat.get(position).getIdTheLoai(),mangbaihat.get(position).getTenAlbum(),mangbaihat.get(position).getIdBaiHat());
                         fmp_Dianhac.Playnhac(mangbaihat.get(position).getHinhBaiHat());
+                        fmp_Danhsachbaihat.Getdata();
                         getSupportActionBar().setTitle(mangbaihat.get(position).getTenBaiHat());
 
                         Addtolichsu(mangbaihat.get(position).getIdBaiHat().toString());
+                        Addluotnghe(mangbaihat.get(position).getIdBaiHat().toString());
                     }
                     //sau 5 giây mới ấn tiếp đc tránh gây crash
                     imgnext.setClickable(false);
@@ -567,8 +663,8 @@ public class MusicPlayerActivity extends AppCompatActivity {
         },1000);//1 giây
     }
 
-    private void Addtolichsu(String idbaihat){
-        if(PreferenceUtils.getUsername(getApplicationContext())!=null){
+    public void Addtolichsu(String idbaihat){
+        if(PreferenceUtils.getUsername(getApplicationContext())!=null && !PreferenceUtils.getUsername(getApplicationContext()).equals("")){
             Dataservice dataservice= APIService.getService();
             Call<String> callback=dataservice.PostUpdateLichsuNguoidung(PreferenceUtils.getUsername(getApplicationContext()),idbaihat);
             callback.enqueue(new Callback<String>() {
@@ -591,13 +687,85 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
                 }
             });
+        }else{
+            Log.d("musicplayer_addls","notlogin");
+            if(PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext())!=null && !PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()).equals("")){
+                //lấy mảng các id bai hát trong dslichsunghe
+                String[] oldlist=PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()).split(",");
+
+                ArrayList<String> oldlistidbaihat= new ArrayList<>(Arrays.asList(oldlist)); //convert sang Arraylist để dễ xử lý
+
+                //bỏ tất cả những biến trùng
+                Set<String> set = new HashSet<>(oldlistidbaihat);
+                oldlistidbaihat.clear();
+                oldlistidbaihat.addAll(set);
+
+                //kiểm tra xem idbaihat sap thêm có trong mang chua
+                if(oldlistidbaihat.contains(idbaihat)){
+                    oldlistidbaihat.remove(idbaihat); //xóa khỏi danh sach
+                    //có -> tìm và loại bỏ nơi nó xuất hiện
+                    //   -> thêm lại vào bên trái
+                    String temp ="";
+
+                    for(int i=0;i<oldlistidbaihat.size();i++){
+                        if(!oldlistidbaihat.get(i).equals(idbaihat)){
+                            if(i==oldlistidbaihat.size()-1){
+                                temp+=oldlistidbaihat.get(i);
+                            }else{
+                                temp+=oldlistidbaihat.get(i);
+                                temp+=",";
+                            }
+                        }
+                    }
+
+                    //b cuối lưu lại
+                    if(temp.equals("")){
+                        PreferenceUtils.saveListenHistoryForNoAcc(idbaihat,getApplicationContext());
+                    }else{
+                        PreferenceUtils.saveListenHistoryForNoAcc(idbaihat+","+temp,getApplicationContext());
+                    }
+
+                    Log.d("musicplayer_addls_1",""+PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()));
+                }else {
+                    //ko -> thêm vào từ bên trái
+
+                    //b cuối lưu lại
+                    PreferenceUtils.saveListenHistoryForNoAcc(idbaihat+","+PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()),getApplicationContext());
+                    Log.d("musicplayer_addls_2",""+PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()));
+                }
+            }else{
+                PreferenceUtils.saveListenHistoryForNoAcc(idbaihat,getApplicationContext());
+                Log.d("musicplayer_addls_3",""+PreferenceUtils.getListenHistoryForNoAcc(getApplicationContext()));
+            }
+
         }
     }
 
-    //sukien nut them vao playlist va nut thich
-    private void button(Baihat baihat){
-        if(!PreferenceUtils.getUsername(getApplicationContext()).equals("")){
+    public void Addluotnghe(String idbaihat){
+        Dataservice dataservice_luotnghe=APIService.getService();
+        Call<String> call_updateluotnghe=dataservice_luotnghe.PostUpdateLuotNghe("1",idbaihat);
+        call_updateluotnghe.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String kq=response.body();
+                if(kq.equals("success")){
+                    Log.d("musicplayer_addln","Thành công thêm lượt nghe");
+                }if(kq.equals("fail")){
+                    Log.d("musicplayer_addln","Thất bại thêm lượt nghe");
+                }else{
+                    Log.d("musicplayer_addln","Lỗi gửi tham số lên hệ thống");
+                }
+            }
 
-        }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("musicplayer_addln","onFailure");
+            }
+        });
+    }
+
+    //sukien nut them vao playlist va nut thich
+    private void RefreshFragmentDSBH(Fragment_MusicPlayer_Danhsachbaihat fmp_Danhsachbaihat){
+        fmp_Danhsachbaihat.Getdata();
     }
 }

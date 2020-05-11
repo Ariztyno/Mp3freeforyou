@@ -21,6 +21,7 @@ import com.example.mp3freeforyou.Model.Album;
 import com.example.mp3freeforyou.R;
 import com.example.mp3freeforyou.Service.APIService;
 import com.example.mp3freeforyou.Service.Dataservice;
+import com.example.mp3freeforyou.Ultils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +44,72 @@ public class Fragment_Goiy_Album extends Fragment {
         txtXemThemAlbum=view.findViewById(R.id.txtViewmoreAlbum);
         txtTile=view.findViewById(R.id.txtTitleAlbum);
         txtTile.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-        getData();
+        if(PreferenceUtils.getUsername(getContext())==null){
+            getDataIfNotLogged();
+        }else{
+            getDataIfLogged();
+        }
         XemThem();
-        Anhienre();
+        AnHienre();// ẨN HIỆN RE
         return view;
     }
 
-    private void Anhienre() {
+    private void getDataIfNotLogged() {
+        //GỢI Ý CHO TÀI KHOẢN CHƯA ĐĂNG NHẬP
+        Dataservice dataservice= APIService.getService();
+        if(PreferenceUtils.getListIdCasifromQuizChoice(getContext()).matches(".*\\d.*") || PreferenceUtils.getBanListIdCaSi(getContext()).matches(".*\\d.*") || PreferenceUtils.getListenHistoryForNoAcc(getContext()).matches(".*\\d.*")){
+            //check if banlist hoặc quiz choice is null replace with ""
+            if(PreferenceUtils.getListIdCasifromQuizChoice(getContext()) == null){
+                PreferenceUtils.saveListIdCasifromQuizChoice("",getContext());
+            }
+            if(PreferenceUtils.getBanListIdCaSi(getContext()) == null){
+                PreferenceUtils.saveBanListIdCaSi("",getContext());
+            }
+            if(PreferenceUtils.getListenHistoryForNoAcc(getContext())==null){
+                PreferenceUtils.saveListenHistoryForNoAcc("",getContext());
+            }
+
+            Call<List<Album>> callback=dataservice.PostGoiyAlbumForNoAcc(PreferenceUtils.getListenHistoryForNoAcc(getContext()),PreferenceUtils.getListIdCasifromQuizChoice(getContext()),PreferenceUtils.getBanListIdCaSi(getContext()));
+            callback.enqueue(new Callback<List<Album>>() {
+                @Override
+                public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+                    mangalbum= (ArrayList<Album>) response.body();
+                    albumAdapter=new AlbumAdapter(getActivity(),mangalbum);
+                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+                    linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+                    realbum.setLayoutManager(linearLayoutManager);
+                    realbum.setAdapter(albumAdapter);
+                    Log.d("Album:",mangalbum.get(0).getTenAlbum());
+                }
+
+                @Override
+                public void onFailure(Call<List<Album>> call, Throwable t) {
+
+                }
+            });
+        }else{
+            Call<List<Album>> callback=dataservice.PostGoiyAlbumForNoAccNoquizNoban();//nobanlist
+            callback.enqueue(new Callback<List<Album>>() {
+                @Override
+                public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+                    mangalbum= (ArrayList<Album>) response.body();
+                    albumAdapter=new AlbumAdapter(getActivity(),mangalbum);
+                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+                    linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+                    realbum.setLayoutManager(linearLayoutManager);
+                    realbum.setAdapter(albumAdapter);
+                    Log.d("Album:",mangalbum.get(0).getTenAlbum());
+                }
+
+                @Override
+                public void onFailure(Call<List<Album>> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
+    private void AnHienre() {
         txtTile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,9 +122,9 @@ public class Fragment_Goiy_Album extends Fragment {
         });
     }
 
-    private void getData() {
+    private void getDataIfLogged() {
         Dataservice dataservice= APIService.getService();
-        Call<List<Album>> callback=dataservice.GetDataAlbumCurrentDay();
+        Call<List<Album>> callback=dataservice.PostGoiyAlbum(PreferenceUtils.getUsername(getContext()));
         callback.enqueue(new Callback<List<Album>>() {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {

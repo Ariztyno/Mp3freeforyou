@@ -44,10 +44,67 @@ public class Fragment_Goiy_Theloai extends Fragment {
         txtXemThemTheloai=view.findViewById(R.id.txtViewmoreTheloai);
         txtTitle=view.findViewById(R.id.txtTitletheloai);
         txtTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
-        GetData();
+        if(PreferenceUtils.getUsername(getContext())==null){
+            getDataIfNotLogged();
+        }else{
+            getDataIfLogged();
+        }
         Xemthem();
         AnhienRe();
         return view;
+    }
+
+    private void getDataIfNotLogged() {
+        Dataservice dataservice= APIService.getService();
+        if(PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getContext()).matches(".*\\d.*") || PreferenceUtils.getListenHistoryForNoAcc(getContext()).matches(".*\\d.*")){
+            if(PreferenceUtils.getListenHistoryForNoAcc(getContext())==null){
+                PreferenceUtils.saveListenHistoryForNoAcc("",getContext());
+            }
+            if(PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getContext())==null){
+                PreferenceUtils.saveListIdTheloaibaihatfromQuizChoice("",getContext());
+            }
+
+            Call<List<Theloaibaihat>> callback=dataservice.PostGoiyTheloaiForNoAcc(PreferenceUtils.getListenHistoryForNoAcc(getContext()),PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getContext()));
+            callback.enqueue(new Callback<List<Theloaibaihat>>() {
+                @Override
+                public void onResponse(Call<List<Theloaibaihat>> call, Response<List<Theloaibaihat>> response) {
+                    mangtheloai= (ArrayList<Theloaibaihat>) response.body();
+                    theloaiAdapter=new  TheloaiAdapter(getActivity(),mangtheloai);
+                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+                    linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+                    retheloai.setLayoutManager(linearLayoutManager);
+                    retheloai.setAdapter(theloaiAdapter);
+
+                    Log.d("theloai1","Yes");
+                }
+
+                @Override
+                public void onFailure(Call<List<Theloaibaihat>> call, Throwable t) {
+
+                }
+            });
+        }else {
+            Call<List<Theloaibaihat>> callback=dataservice.PostGoiyTheloaiForNoAccNoQuiz();
+            callback.enqueue(new Callback<List<Theloaibaihat>>() {
+                @Override
+                public void onResponse(Call<List<Theloaibaihat>> call, Response<List<Theloaibaihat>> response) {
+                    mangtheloai= (ArrayList<Theloaibaihat>) response.body();
+                    theloaiAdapter=new  TheloaiAdapter(getActivity(),mangtheloai);
+                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+                    linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+                    retheloai.setLayoutManager(linearLayoutManager);
+                    retheloai.setAdapter(theloaiAdapter);
+
+                    Log.d("theloai1","Yes");
+                }
+
+                @Override
+                public void onFailure(Call<List<Theloaibaihat>> call, Throwable t) {
+
+                }
+            });
+        }
+
     }
 
     private void AnhienRe() {
@@ -63,7 +120,7 @@ public class Fragment_Goiy_Theloai extends Fragment {
         });
     }
 
-    private void GetData() {
+    private void getDataIfLogged() {
         Dataservice dataservice= APIService.getService();
         Call<List<Theloaibaihat>> callback=dataservice.PostGoiyTheloai(PreferenceUtils.getUsername(getContext()));
         callback.enqueue(new Callback<List<Theloaibaihat>>() {
@@ -76,7 +133,7 @@ public class Fragment_Goiy_Theloai extends Fragment {
                 retheloai.setLayoutManager(linearLayoutManager);
                 retheloai.setAdapter(theloaiAdapter);
 
-                Log.d("theloai","Yes");
+                Log.d("theloai2","Yes"+PreferenceUtils.getListIdTheloaibaihatfromQuizChoice(getContext()));
             }
 
             @Override
