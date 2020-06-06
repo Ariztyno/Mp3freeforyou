@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:maxLength="12"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
             android:maxLines="1"
             android:layout_marginLeft="10dp"
             android:textSize="12sp"
@@ -138,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/matkhau"
-            android:digits="0123456789qưertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.,/';[]`~!@#$%;^*()_+-=&amp;?><&quot;"
             android:inputType="textPassword"
             android:maxLength="15"
             android:maxLines="1"
@@ -177,7 +176,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/rematkhau"
-            android:digits="0123456789qưertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM.,/';[]`~!@#$%;^*()_+-=&amp;?><&quot;"
             android:inputType="textPassword"
             android:maxLength="15"
             android:maxLines="1"
